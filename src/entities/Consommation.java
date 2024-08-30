@@ -10,8 +10,9 @@ public class Consommation {
     private LocalDate endDate;
     private Float value;
     private User user;
-    Scanner scanner = new Scanner(System.in);
 
+    public Consommation() {
+    }
 
     public Consommation(Long id, LocalDate startDate, LocalDate endDate, Float value) {
         this.id = id;
