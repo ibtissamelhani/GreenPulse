@@ -2,7 +2,9 @@
 public class Main {
     public static void main(String[] args) {
 
-        System.out.printf("Hello and welcome to GreenPulse!");
+        System.out.println("Hello and welcome to GreenPulse!");
+        Menu menu = new Menu();
+        menu.start();
 
     }
 }

@@ -52,4 +52,9 @@ public class User {
         this.consommations = consommations;
     }
 
+    public void addConsommation(Consommation consommation) {
+        this.consommations.add(consommation);
+        consommation.setUser(this);
+    }
+
 }

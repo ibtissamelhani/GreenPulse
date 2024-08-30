@@ -4,42 +4,55 @@ import entities.Consommation;
 import entities.User;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserService {
 
     Scanner scanner = new Scanner(System.in);
-    HashMap<Long, User> users = new HashMap<>();
+    private Map<Long, User> users = new HashMap<>();
+    private Random rand = new Random();
 
-    public void createUser() {
-        System.out.println("Create a new user");
-
-        System.out.printf("Enter your ID : ");
-        Long id = scanner.nextLong();
-        System.out.printf("Enter your name : ");
-        String name = scanner.nextLine();
-        System.out.printf("Enter your age : ");
-//        while (!) {
-//
-//            age = scanner.nextInt();
-//        }
-        int age = scanner.nextInt();
-        User user = new User(id, name, age);
+    public void createUser( String name , int age) {
+        User user = new User();
+        Long id = 1 + rand.nextLong();
+        user.setId(id);
+        user.setName(name);
+        user.setAge(age);
         users.put(id, user);
-        System.out.println("user created successfully ");
+        System.out.println("account created successfully ");
     }
 
-    public void deleteUser() {
+    public void deleteUser(int id) {
+            User deletedUser = users.remove(id);
+            if (deletedUser != null) {
+                System.out.println("User deleted successfully: " + deletedUser.getName());
+            } else {
+                System.out.println("User not found: " + id);
+            }
+        }
 
+
+    public void updateUser(Long id, String name , int age) {
+        User updatedUser = users.get(id);
+        if (updatedUser != null) {
+            updatedUser.setName(name);
+            updatedUser.setAge(age);
+            System.out.println("User updated successfully: " + updatedUser.getName());
+        }else{
+            System.out.println("User not found: " + id);
+        }
     }
 
-    public void updateUser() {
-
+     public List<User> getAllUsers() {
+        return new ArrayList<>(users.values());
     }
 
-    public void addNewConsommation() {
+    public void addNewConsommation(Long userId) {
         System.out.println("Add new consommation");
+
+        System.out.printf("Enter consommation ID: ");
+        Long id = scanner.nextLong();
+        scanner.nextLine();  // Consume newline left-over
 
         System.out.printf("Enter start date (format: YYYY-MM-DD) : ");
         LocalDate startDate = LocalDate.parse(scanner.nextLine());
@@ -49,7 +62,16 @@ public class UserService {
 
         System.out.printf("Enter value : ");
         Float value = scanner.nextFloat();
+        scanner.nextLine();  // Consume newline left-over
 
-        Consommation
+        Consommation consommation = new Consommation(id, startDate, endDate, value);
+
+        User user = users.get(userId);
+        if (user != null) {
+            user.addConsommation(consommation);
+            System.out.println("Consommation added successfully for user: " + user.getName());
+        } else {
+            System.out.println("User not found with ID: " + userId);
+        }
     }
 }
