@@ -1,9 +1,8 @@
 package entities;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 
-public class Consommation {
+public class Consumption {
 
     private Long id;
     private LocalDate startDate;
@@ -11,10 +10,10 @@ public class Consommation {
     private Float value;
     private User user;
 
-    public Consommation() {
+    public Consumption() {
     }
 
-    public Consommation(Long id, LocalDate startDate, LocalDate endDate, Float value) {
+    public Consumption(Long id, LocalDate startDate, LocalDate endDate, Float value) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;

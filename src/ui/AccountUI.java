@@ -1,4 +1,4 @@
-package uiInterface;
+package ui;
 
 import entities.User;
 import service.UserService;
@@ -6,9 +6,9 @@ import service.UserService;
 import java.util.List;
 import java.util.Scanner;
 
-public class UserUI {
+public class AccountUI {
 
-    private UserService userService;
+    private UserService userService = new UserService();
     private final Scanner scanner = new Scanner(System.in);
 
 
@@ -49,11 +49,11 @@ public class UserUI {
             System.out.print("id: " + user.getId() + "  name: " + user.getName() + " age: " + user.getAge() + "\n");
         }
     }
-    public void AddNewConsommation(){
-        System.out.println("Add new consommation");
 
+    public void AddNewConsumption(){
+        System.out.println("Add new Consumption");
         System.out.print("Enter user Id: ");
         Long userId = scanner.nextLong();
-        userService.addConsommationToUser(userId);
+        userService.addConsumptionToUser(userId);
     }
 }

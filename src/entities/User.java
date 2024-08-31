@@ -8,7 +8,7 @@ public class User {
     private Long id;
     private String name;
     private int age;
-    private List<Consommation> consommations;
+    private List<Consumption> consumptions;
 
     public User() {
     }
@@ -17,7 +17,7 @@ public class User {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.consommations = new ArrayList<>();
+        this.consumptions = new ArrayList<>();
     }
 
     public Long getId() {
@@ -44,17 +44,17 @@ public class User {
         this.age = age;
     }
 
-    public List<Consommation> getConsommations() {
-        return consommations;
+    public List<Consumption> getConsommations() {
+        return consumptions;
     }
 
-    public void setConsommations(List<Consommation> consommations) {
-        this.consommations = consommations;
+    public void setConsommations(List<Consumption> consumptions) {
+        this.consumptions = consumptions;
     }
 
-    public void addConsommation(Consommation consommation) {
-        this.consommations.add(consommation);
-        consommation.setUser(this);
+    public void addConsumption(Consumption consumption) {
+        this.consumptions.add(consumption);
+        consumption.setUser(this);
     }
 
 }

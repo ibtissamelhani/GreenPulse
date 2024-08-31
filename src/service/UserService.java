@@ -1,6 +1,6 @@
 package service;
 
-import entities.Consommation;
+import entities.Consumption;
 import entities.User;
 
 import java.time.LocalDate;
@@ -11,11 +11,10 @@ public class UserService {
     Scanner scanner = new Scanner(System.in);
     private Map<Long, User> users = new HashMap<>();
     private Random rand = new Random();
-    ;
 
     public void createUser( String name , int age) {
         User user = new User();
-        Long id = rand.nextLong();
+        Long id = 1 + (long) (rand.nextDouble() * (1000));
         user.setId(id);
         user.setName(name);
         user.setAge(age);
@@ -52,26 +51,26 @@ public class UserService {
         return users.get(id);
      }
 
-    public void addConsommationToUser(Long userId) {
+    public void addConsumptionToUser(Long userId) {
 
         User user = getUserById(userId);
         if (user != null) {
 
-            Long id = rand.nextLong();
-            System.out.printf("Enter start date (format: YYYY-MM-DD) : ");
+            Long id = 1 + (long) (rand.nextDouble() * (1000));
+            System.out.print("Enter start date (format: YYYY-MM-DD) : ");
             LocalDate startDate = LocalDate.parse(scanner.nextLine());
 
-            System.out.printf("Enter end date (format: YYYY-MM-DD) : ");
+            System.out.print("Enter end date (format: YYYY-MM-DD) : ");
             LocalDate endDate = LocalDate.parse(scanner.nextLine());
 
-            System.out.printf("Enter value : ");
+            System.out.print("Enter value : ");
             Float value = scanner.nextFloat();
 
-            Consommation consommation = new Consommation(id, startDate, endDate, value);
-            //add consomation to user's consomation list
-            user.addConsommation(consommation);
+            Consumption consumption = new Consumption(id, startDate, endDate, value);
+            //add Consumption to user's Consumption list
+            user.addConsumption(consumption);
 
-            System.out.println("Consommation added successfully for user: " + user.getName());
+            System.out.println("Consumption added successfully for user: " + user.getName());
         } else {
             System.out.println("User not found with ID: " + userId);
         }
