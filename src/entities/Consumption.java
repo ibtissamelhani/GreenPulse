@@ -4,28 +4,17 @@ import java.time.LocalDate;
 
 public class Consumption {
 
-    private Long id;
     private LocalDate startDate;
     private LocalDate endDate;
     private Float value;
-    private User user;
 
     public Consumption() {
     }
 
-    public Consumption(Long id, LocalDate startDate, LocalDate endDate, Float value) {
-        this.id = id;
+    public Consumption(LocalDate startDate, LocalDate endDate, Float value) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.value = value;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public LocalDate getStartDate() {
@@ -50,13 +39,6 @@ public class Consumption {
 
     public void setValue(Float value) {
         this.value = value;
-    }
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 }

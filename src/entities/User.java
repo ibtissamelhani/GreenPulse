@@ -53,8 +53,11 @@ public class User {
     }
 
     public void addConsumption(Consumption consumption) {
-        this.consumptions.add(consumption);
-        consumption.setUser(this);
+        if (consumption != null) {
+            this.consumptions.add(consumption);
+        } else {
+            System.out.println("Cannot add null consumption.");
+        }
     }
 
 }

@@ -51,28 +51,17 @@ public class UserService {
         return users.get(id);
      }
 
-    public void addConsumptionToUser(Long userId) {
-
+    public float calcTotalConsumption(Long userId) {
         User user = getUserById(userId);
         if (user != null) {
-
-            Long id = 1 + (long) (rand.nextDouble() * (1000));
-            System.out.print("Enter start date (format: YYYY-MM-DD) : ");
-            LocalDate startDate = LocalDate.parse(scanner.nextLine());
-
-            System.out.print("Enter end date (format: YYYY-MM-DD) : ");
-            LocalDate endDate = LocalDate.parse(scanner.nextLine());
-
-            System.out.print("Enter value : ");
-            Float value = scanner.nextFloat();
-
-            Consumption consumption = new Consumption(id, startDate, endDate, value);
-            //add Consumption to user's Consumption list
-            user.addConsumption(consumption);
-
-            System.out.println("Consumption added successfully for user: " + user.getName());
-        } else {
+            Float totalConsumption = 0.0f;
+            for(Consumption consumption: user.getConsommations()){
+                totalConsumption += consumption.getValue();
+            }
+            return totalConsumption;
+        }else {
             System.out.println("User not found with ID: " + userId);
+            return 0.0f;
         }
     }
 

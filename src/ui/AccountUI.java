@@ -3,6 +3,7 @@ package ui;
 import entities.User;
 import service.UserService;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -50,10 +51,10 @@ public class AccountUI {
         }
     }
 
-    public void AddNewConsumption(){
-        System.out.println("Add new Consumption");
+    public void ShowTotalConsumption(){
+        System.out.println("Total Consumption");
         System.out.print("Enter user Id: ");
         Long userId = scanner.nextLong();
-        userService.addConsumptionToUser(userId);
+        userService.calcTotalConsumption(userId);
     }
 }
