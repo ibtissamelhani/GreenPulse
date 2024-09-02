@@ -102,7 +102,6 @@ public class ConsumptionService {
                         sharedDateStart = consumption.getStartDate();
                     }
 
-                    // Determine the effective end date of the overlap
                     if (consumption.getEndDate().isAfter(weekEndDay)) {
                         sharedDateEnd = weekEndDay;
                     } else {
@@ -125,5 +124,24 @@ public class ConsumptionService {
             return 0f;
         }
     }
+
+    public float getMonthlyConsumption(Long userID, LocalDate monthStart) {
+        User user = userService.getUserById(userID);
+        if (user != null) {
+            float monthlyConsumption = 0f;
+            LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
+
+            for (Consumption consumption : user.getConsommations()) {
+                if (!monthEnd.isBefore(consumption.getStartDate()) && !monthStart.isAfter(consumption.getEndDate())) {
+                    Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) + 1;
+                    Float dailyValue = consumption.getValue() / numOfDays;
+
+
+        } else {
+            System.out.println("User not found");
+            return 0f;
+        }
+    }
+
 
 }
