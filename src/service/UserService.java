@@ -3,32 +3,30 @@ package service;
 import entities.Consumption;
 import entities.User;
 
-import java.time.LocalDate;
 import java.util.*;
 
 public class UserService {
 
-    Scanner scanner = new Scanner(System.in);
     private Map<Long, User> users = new HashMap<>();
     private Random rand = new Random();
 
     public void createUser( String name , int age) {
         User user = new User();
-        Long id = 1 + (long) (rand.nextDouble() * (1000));
+        Long id = 1 + (long) (rand.nextDouble() * (100));
         user.setId(id);
         user.setName(name);
         user.setAge(age);
         users.put(id, user);
-        System.out.println("account created successfully ");
-        System.out.print("id: " + user.getId() + "  name: " + user.getName() + " age: " + user.getAge() + "\n");
+        System.out.println("\n account created successfully ");
+        System.out.print("id: " + user.getId() + "  name: " + user.getName() + " age: " + user.getAge() + " \n\n");
     }
 
     public void deleteUser(Long id) {
             User deletedUser = users.remove(id);
             if (deletedUser != null) {
-                System.out.println("User deleted successfully: " + deletedUser.getId() + " : " + deletedUser.getName());
+                System.out.println("User: " + deletedUser.getId() + " name: " + deletedUser.getName() + " is deleted successfully");
             } else {
-                System.out.println("User not found: " + id);
+                System.out.println("User not found, the ID " + id + " does not exist");
             }
         }
 
@@ -37,9 +35,10 @@ public class UserService {
         if (updatedUser != null) {
             updatedUser.setName(name);
             updatedUser.setAge(age);
-            System.out.println("User updated successfully: " + updatedUser.getName());
+            System.out.println("User updated successfully, id: " + updatedUser.getId() + "  name: " + updatedUser.getName() + " age: " + updatedUser.getAge() + " \n\n");
+
         }else{
-            System.out.println("User not found: " + id);
+            System.out.println("User not found ");
         }
     }
 

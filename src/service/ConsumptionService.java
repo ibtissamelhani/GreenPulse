@@ -8,21 +8,18 @@ import java.time.temporal.ChronoUnit;
 
 public class ConsumptionService {
 
-    private UserService userService = new UserService();
+    private final UserService userService = new UserService();
 
     public void addConsumptionToUser(Long userId, LocalDate startDate, LocalDate endDate, Float value) {
 
         User user = userService.getUserById(userId);
-        if (user != null) {
 
             Consumption consumption = new Consumption(startDate,endDate,value);
 
             user.addConsumption(consumption);
 
             System.out.println("Consumption added successfully for user: " + user.getName());
-        } else {
-            System.out.println("User not found with ID: " + userId);
-        }
+
     }
 
 

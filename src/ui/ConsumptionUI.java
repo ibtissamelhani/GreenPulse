@@ -1,5 +1,6 @@
 package ui;
 
+import entities.User;
 import service.ConsumptionService;
 import service.UserService;
 
@@ -8,17 +9,19 @@ import java.util.Scanner;
 
 public class ConsumptionUI {
 
-    private ConsumptionService consumptionService = new ConsumptionService();
-    private UserService userService = new UserService();
+    private final ConsumptionService consumptionService = new ConsumptionService();
+    private final UserService userService = new UserService();
     private final Scanner scanner = new Scanner(System.in);
 
 
     public void AddNewConsumption(){
-        System.out.println("Add new Consumption");
+
+        System.out.println("Add new Consumption \n");
+
         System.out.print("Enter user Id: ");
         long userId = scanner.nextLong();
-
-        if (userService.getUserById(userId) != null){
+        User user = userService.getUserById(userId);
+        if (user != null){
             System.out.print("Enter start date (format: YYYY-MM-DD) : ");
             LocalDate startDate = LocalDate.parse(scanner.nextLine());
 

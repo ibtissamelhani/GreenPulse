@@ -41,4 +41,12 @@ public class Consumption {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        return "Consumption{" +
+                "startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", value=" + value +
+                '}';
+    }
 }
