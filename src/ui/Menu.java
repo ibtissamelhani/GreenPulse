@@ -86,9 +86,9 @@ public class Menu {
             System.out.println("Consumption Management Menu");
             System.out.println("1. Add New Consumption");
             System.out.println("2. Show total consumption of user");
-            System.out.println("3. Show Daily consumption of user");
-            System.out.println("4. Show Weekly consumption of user");
-            System.out.println("5. Show Monthly consumption of user");
+            System.out.println("3. Show Daily consumption");
+            System.out.println("4. Show Weekly consumption");
+            System.out.println("5. Show Monthly consumption");
             System.out.println("6. Return to Main Menu ");
             System.out.println("7. Exit \n");
 
@@ -103,6 +103,9 @@ public class Menu {
                     break;
                 case "3":
                     consumptionUI.dailyConsumption();
+                    break;
+                case "4":
+                    consumptionUI.weeklyConsumption();
                     break;
                 case "6":
                     quit = true;

@@ -55,6 +55,7 @@ public class User {
     public void addConsumption(Consumption consumption) {
         if (consumption != null) {
             this.consumptions.add(consumption);
+            System.out.println("Consumption added successfully");
         } else {
             System.out.println("Cannot add null consumption.");
         }

@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class AccountUI {
 
     private final UserService userService = new UserService();
-    private final Scanner scanner = new Scanner(System.in);
+    private  final Scanner scanner = new Scanner(System.in);
 
 
     public void createAccount(){
