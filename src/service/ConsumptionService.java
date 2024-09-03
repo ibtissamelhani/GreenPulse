@@ -55,7 +55,7 @@ public class ConsumptionService {
 
             Consumption consumption = new Consumption(startDate, endDate, value);
 
-            user.addConsumption(consumption);
+            userService.addConsumption(user,consumption);
 
         }else {
             System.out.println("User not found");
@@ -67,7 +67,7 @@ public class ConsumptionService {
         User user = userService.getUserById(userID);
         if (user != null) {
             float dailyConsumption = 0f;
-            for(Consumption consumption: user.getConsommations()) {
+            for(Consumption consumption: user.getconsumptions()) {
                 if (!date.isBefore(consumption.getStartDate()) && !date.isAfter(consumption.getEndDate())) {
                     Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) +1 ;
                     float result = consumption.getValue() / numOfDays;
@@ -90,7 +90,7 @@ public class ConsumptionService {
             float weeklyConsumption = 0f;
             LocalDate weekEndDay = weekStartDay.plusDays(6);
 
-            for (Consumption consumption : user.getConsommations()) {
+            for (Consumption consumption : user.getconsumptions()) {
 
                 if (!weekEndDay.isBefore(consumption.getStartDate()) && !weekStartDay.isAfter(consumption.getEndDate())) {
                     Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) + 1;
@@ -135,7 +135,7 @@ public class ConsumptionService {
             float monthlyConsumption = 0f;
             LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
 
-            for (Consumption consumption : user.getConsommations()) {
+            for (Consumption consumption : user.getconsumptions()) {
                 if (!monthEnd.isBefore(consumption.getStartDate()) && !monthStart.isAfter(consumption.getEndDate())) {
                     Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) + 1;
                     Float dailyValue = consumption.getValue() / numOfDays;

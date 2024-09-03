@@ -44,21 +44,12 @@ public class User {
         this.age = age;
     }
 
-    public List<Consumption> getConsommations() {
+    public List<Consumption> getconsumptions() {
         return consumptions;
     }
 
-    public void setConsommations(List<Consumption> consumptions) {
+    public void setconsumptions(List<Consumption> consumptions) {
         this.consumptions = consumptions;
-    }
-
-    public void addConsumption(Consumption consumption) {
-        if (consumption != null) {
-            this.consumptions.add(consumption);
-            System.out.println("Consumption added successfully");
-        } else {
-            System.out.println("Cannot add null consumption.");
-        }
     }
 
     @Override

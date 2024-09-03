@@ -50,11 +50,20 @@ public class UserService {
         return users.get(id);
      }
 
+
+    public void addConsumption(User user, Consumption consumption) {
+        if (user.getconsumptions() == null) {
+            user.setconsumptions(new ArrayList<>());
+        }
+            user.getconsumptions().add(consumption);
+            System.out.println("Consumption added successfully");
+    }
+
     public float calcTotalConsumption(Long userId) {
         User user = getUserById(userId);
         if (user != null) {
             Float totalConsumption = 0.0f;
-            for(Consumption consumption: user.getConsommations()){
+            for(Consumption consumption: user.getconsumptions()){
                 totalConsumption += consumption.getValue();
             }
             return totalConsumption;
