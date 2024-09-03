@@ -43,4 +43,14 @@ public class ConsumptionUI {
         float result = consumptionService.getWeeklyConsumption(userId, date);
         System.out.println("Weekly Consumption: " + result);
     }
+
+    public void monthlyConsumption() {
+        System.out.println("Monthly Consumption");
+        System.out.print("Enter userId: ");
+        Long userId = scanner.nextLong();
+        System.out.print("Enter the date of the month (format: YYYY-MM-DD): ");
+        LocalDate monthStart = LocalDate.parse(scanner.next());
+        float result = consumptionService.getMonthlyConsumption(userId, monthStart);
+        System.out.println("Monthly Consumption: " + result);
+    }
 }

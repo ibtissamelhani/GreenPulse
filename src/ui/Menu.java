@@ -107,6 +107,9 @@ public class Menu {
                 case "4":
                     consumptionUI.weeklyConsumption();
                     break;
+                case "5":
+                    consumptionUI.monthlyConsumption();
+                    break;
                 case "6":
                     quit = true;
                     System.out.println("return to principal menu");

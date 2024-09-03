@@ -135,7 +135,27 @@ public class ConsumptionService {
                 if (!monthEnd.isBefore(consumption.getStartDate()) && !monthStart.isAfter(consumption.getEndDate())) {
                     Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) + 1;
                     Float dailyValue = consumption.getValue() / numOfDays;
+                    LocalDate sharedDateStart;
+                    LocalDate sharedDateEnd;
 
+                    if (consumption.getStartDate().isBefore(monthStart)) {
+                        sharedDateStart = monthStart;
+                    } else {
+                        sharedDateStart = consumption.getStartDate();
+                    }
+
+                    if (consumption.getEndDate().isAfter(monthEnd)) {
+                        sharedDateEnd = monthEnd;
+                    } else {
+                        sharedDateEnd = consumption.getEndDate();
+                    }
+
+                    Long sharedDays = sharedDateStart.until(sharedDateEnd, ChronoUnit.DAYS) + 1;
+
+                    monthlyConsumption += dailyValue * sharedDays;
+                }
+            }
+            return monthlyConsumption;
 
         } else {
             System.out.println("User not found");
