@@ -7,8 +7,14 @@ import java.util.Scanner;
 
 public class ConsumptionUI {
 
-    private final ConsumptionService consumptionService = new ConsumptionService();
-    private final Scanner scanner = new Scanner(System.in);
+    private final ConsumptionService consumptionService;
+
+    public ConsumptionUI(ConsumptionService consumptionService) {
+        this.consumptionService = consumptionService;
+        this.scanner = new Scanner(System.in);
+    }
+
+    private final Scanner scanner;
 
 
     public void AddNewConsumption(){

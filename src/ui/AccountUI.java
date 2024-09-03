@@ -8,9 +8,13 @@ import java.util.Scanner;
 
 public class AccountUI {
 
-    private final UserService userService = new UserService();
-    private  final Scanner scanner = new Scanner(System.in);
+    private final UserService userService;
+    private  final Scanner scanner;
 
+    public AccountUI(UserService userService) {
+        this.userService = userService;
+        this.scanner = new Scanner(System.in);
+    }
 
     public void createAccount(){
         System.out.println(" Create New Account ");

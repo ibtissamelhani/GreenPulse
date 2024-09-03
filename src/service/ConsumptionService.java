@@ -9,10 +9,14 @@ import java.util.Scanner;
 
 public class ConsumptionService {
 
-    private final UserService userService = new UserService();
-    private final Scanner scanner = new Scanner(System.in);
+    private final UserService userService;
+    private final Scanner scanner;
 
-    public void addConsumptionToUser(Long userId) {
+    public ConsumptionService(UserService userService) {
+        this.userService = userService;
+        this.scanner = new Scanner(System.in);
+    }
+    public void addConsumptionToUser(long userId) {
 
         Float value = null;
         LocalDate endDate;

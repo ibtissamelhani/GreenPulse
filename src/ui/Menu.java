@@ -1,11 +1,17 @@
 package ui;
 
+import service.ConsumptionService;
+import service.UserService;
+
 import java.util.Scanner;
 
 public class Menu {
 
-    private AccountUI accountUI = new AccountUI();
-    private ConsumptionUI consumptionUI = new ConsumptionUI();
+    private final UserService userService = new UserService();
+    private final ConsumptionService consumptionService = new ConsumptionService(userService);
+    private final AccountUI accountUI = new AccountUI(userService);
+    private final ConsumptionUI consumptionUI = new ConsumptionUI(consumptionService);
+
     private final Scanner scanner = new Scanner(System.in);
     private boolean quit = false;
 
