@@ -18,13 +18,18 @@ public class UserService {
         user.setAge(age);
         users.put(id, user);
         System.out.println("\n account created successfully ");
-        System.out.print("id: " + user.getId() + "  name: " + user.getName() + " age: " + user.getAge() + " \n\n");
+        System.out.println("\n+--------------------+--------------------+--------------------+");
+        System.out.printf("| %-18s | %-18s | %-18s |\n", "ID", "Name", "Age");
+        System.out.println("+--------------------+--------------------+--------------------+");
+        System.out.printf("| %-18s | %-18s | %-18s |\n", user.getId(), user.getName(), user.getAge());
+        System.out.println("+--------------------+--------------------+--------------------+\n");
+
     }
 
     public void deleteUser(Long id) {
             User deletedUser = users.remove(id);
             if (deletedUser != null) {
-                System.out.println("User: " + deletedUser.getId() + " name: " + deletedUser.getName() + " is deleted successfully");
+                System.out.println("User: " + deletedUser.getId() + " name: " + deletedUser.getName() + " is deleted successfully \n");
             } else {
                 System.out.println("User not found, the ID " + id + " does not exist");
             }
@@ -35,7 +40,12 @@ public class UserService {
         if (updatedUser != null) {
             updatedUser.setName(name);
             updatedUser.setAge(age);
-            System.out.println("User updated successfully, id: " + updatedUser.getId() + "  name: " + updatedUser.getName() + " age: " + updatedUser.getAge() + " \n\n");
+            System.out.println("User updated successfully , New information :");
+            System.out.println("\n+--------------------+--------------------+--------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s |\n", "ID", "Name", "Age");
+            System.out.println("+--------------------+--------------------+--------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s |\n", updatedUser.getId(), updatedUser.getName(), updatedUser.getAge());
+            System.out.println("+--------------------+--------------------+--------------------+\n");
 
         }else{
             System.out.println("User not found ");
@@ -50,13 +60,18 @@ public class UserService {
         return users.get(id);
      }
 
-
     public void addConsumption(User user, Consumption consumption) {
         if (user.getconsumptions() == null) {
             user.setconsumptions(new ArrayList<>());
         }
             user.getconsumptions().add(consumption);
-            System.out.println("Consumption added successfully");
+            System.out.println("\nConsumption added successfully\n");
+        System.out.println("\n+--------------------+--------------------+--------------------+--------------------+");
+        System.out.printf("| %-18s | %-18s | %-18s | %-18s |\n", "User", "Start Date", "End Date", "Value");
+        System.out.println("+--------------------+--------------------+--------------------+--------------------+");
+        System.out.printf("| %-18s | %-18s | %-18s | %-18s |\n", user.getName(), consumption.getStartDate(), consumption.getEndDate(), consumption.getValue());
+        System.out.println("+--------------------+--------------------+--------------------+--------------------+\n");
+
     }
 
 

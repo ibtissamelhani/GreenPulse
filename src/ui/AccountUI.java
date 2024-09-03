@@ -1,5 +1,6 @@
 package ui;
 
+import entities.Consumption;
 import entities.User;
 import service.UserService;
 
@@ -10,6 +11,8 @@ public class AccountUI {
 
     private final UserService userService;
     private  final Scanner scanner;
+    final String RESET = "\u001B[0m";
+    final String RED = "\u001B[31m";
 
     public AccountUI(UserService userService) {
         this.userService = userService;
@@ -42,7 +45,7 @@ public class AccountUI {
         long id = scanner.nextLong();
         User currentUser = userService.getUserById(id);
         if (currentUser != null){
-            System.out.print("id: " + currentUser.getId() + "  name: " + currentUser.getName() + " age: " + currentUser.getAge() + " \n");
+            System.out.print("\nid: " + currentUser.getId() + "  name: " + currentUser.getName() + " age: " + currentUser.getAge() + " \n");
             System.out.print("Enter new Name : ");
             String name = scanner.next();
             int age = -1;
@@ -65,21 +68,27 @@ public class AccountUI {
     }
 
     public void deleteAccount(){
-        System.out.print("Enter user id: ");
+        System.out.print("Enter user ID: ");
         long id = scanner.nextLong();
         userService.deleteUser(id);
     }
 
     public void showAllAccounts(){
-        System.out.println("List of All Accounts");
+        System.out.println(RED+"******************************  List of All Accounts ***********************************"+RESET);
         List<User> users = userService.getAllUsers();
         if(!users.isEmpty()){
             for (User user : users){
                 System.out.print("id: " + user.getId() + "  name: " + user.getName() + " age: " + user.getAge() + "\n");
+                if (user.getconsumptions() != null){
+                    for (Consumption consumption: user.getconsumptions()){
+                        System.out.println("consumption between " + consumption.getStartDate() +" and "+consumption.getEndDate() + " is " + consumption.getValue());
+                    }
+                }
             }
         }else {
             System.out.println("\n Users not found \n");
         }
+        System.out.println(RED+"****************************************************************************************"+RESET);
 
     }
 

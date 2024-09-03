@@ -28,15 +28,15 @@ public class ConsumptionUI {
     }
 
     public void ShowTotalConsumption(){
-        System.out.println("Total Consumption");
+        System.out.println("\n Total Consumption \n");
         System.out.print("Enter user Id: ");
         long userId = scanner.nextLong();
         float result = consumptionService.calcTotalConsumption(userId);
-        System.out.println("Total carbon consumption of user " + userId + "is : " + result);
+        System.out.println("\nTotal carbon consumption of user " + userId + "is : " + result);
     }
 
     public void dailyConsumption() {
-        System.out.println("Daily Consumption");
+        System.out.println(" \nDaily Consumption\n");
 
         System.out.print("Enter userId: ");
         Long userId = scanner.nextLong();

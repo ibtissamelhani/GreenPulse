@@ -33,9 +33,9 @@ public class ConsumptionService {
                 endDate = LocalDate.parse(scanner.nextLine());
 
                 if (!endDate.isBefore(startDate)) {
-                    break; // Exit the loop if the end date is valid
+                    break;
                 } else {
-                    System.out.println("End date cannot be before the start date. Please enter valid dates.");
+                    System.out.println(" \n End date cannot be before the start date. Please enter valid dates.\n");
                 }
             }
 
@@ -49,7 +49,7 @@ public class ConsumptionService {
                         value = null;
                     }
                 } catch (NumberFormatException e) {
-                    System.out.println("Invalid input. Please enter a valid number.");
+                    System.out.println("\n Invalid input! Please enter a valid number.\n");
                 }
             }
 
