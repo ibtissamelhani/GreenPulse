@@ -27,6 +27,14 @@ public class ConsumptionUI {
         consumptionService.addConsumptionToUser(userId);
     }
 
+    public void ShowTotalConsumption(){
+        System.out.println("Total Consumption");
+        System.out.print("Enter user Id: ");
+        long userId = scanner.nextLong();
+        float result = consumptionService.calcTotalConsumption(userId);
+        System.out.println("Total carbon consumption of user " + userId + "is : " + result);
+    }
+
     public void dailyConsumption() {
         System.out.println("Daily Consumption");
 

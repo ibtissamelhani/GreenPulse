@@ -59,19 +59,5 @@ public class UserService {
             System.out.println("Consumption added successfully");
     }
 
-    public float calcTotalConsumption(Long userId) {
-        User user = getUserById(userId);
-        if (user != null) {
-            Float totalConsumption = 0.0f;
-            for(Consumption consumption: user.getconsumptions()){
-                totalConsumption += consumption.getValue();
-            }
-            return totalConsumption;
-        }else {
-            System.out.println("User not found with ID: " + userId);
-            return 0.0f;
-        }
-    }
-
 
 }

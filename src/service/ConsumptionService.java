@@ -63,6 +63,20 @@ public class ConsumptionService {
 
     }
 
+    public float calcTotalConsumption(long userId) {
+        User user = userService.getUserById(userId);
+        if (user != null) {
+            Float totalConsumption = 0.0f;
+            for(Consumption consumption: user.getconsumptions()){
+                totalConsumption += consumption.getValue();
+            }
+            return totalConsumption;
+        }else {
+            System.out.println("User not found with ID: " + userId);
+            return 0.0f;
+        }
+    }
+
     public float getDailyConsumption(Long userID, LocalDate date) {
         User user = userService.getUserById(userID);
         if (user != null) {

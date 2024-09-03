@@ -105,7 +105,7 @@ public class Menu {
                     consumptionUI.AddNewConsumption();
                     break;
                 case "2":
-                    accountUI.ShowTotalConsumption();
+                    consumptionUI.ShowTotalConsumption();
                     break;
                 case "3":
                     consumptionUI.dailyConsumption();

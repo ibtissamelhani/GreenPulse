@@ -83,10 +83,4 @@ public class AccountUI {
 
     }
 
-    public void ShowTotalConsumption(){
-        System.out.println("Total Consumption");
-        System.out.print("Enter user Id: ");
-        Long userId = scanner.nextLong();
-        userService.calcTotalConsumption(userId);
-    }
 }
