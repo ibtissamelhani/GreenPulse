@@ -2,6 +2,7 @@ package service;
 
 import entities.Consumption;
 import entities.User;
+import utils.DateAvailabilityChecker;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -56,10 +57,16 @@ public class ConsumptionService {
                 }
             }
 
+            List<LocalDate> datesList = user.getconsumptions() != null ? getDatesList(user.getconsumptions()) : new ArrayList<>();
+            boolean result = DateAvailabilityChecker.isDateAvailable(startDate, endDate, datesList);
 
-            Consumption consumption = new Consumption(startDate, endDate, value);
+            if (result) {
+                Consumption consumption = new Consumption(startDate, endDate, value);
 
-            userService.addConsumption(user,consumption);
+                userService.addConsumption(user,consumption);
+            } else {
+                System.out.println("Date Already exist ");
+            }
 
         }else {
             System.out.println("User not found");
