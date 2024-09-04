@@ -16,6 +16,7 @@ public class ConsumptionService {
         this.userService = userService;
         this.scanner = new Scanner(System.in);
     }
+
     public void addConsumptionToUser(long userId) {
 
         Float value = null;
