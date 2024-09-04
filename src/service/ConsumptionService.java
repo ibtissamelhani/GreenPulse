@@ -5,6 +5,8 @@ import entities.User;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsumptionService {
@@ -53,6 +55,7 @@ public class ConsumptionService {
                     System.out.println("\n Invalid input! Please enter a valid number.\n");
                 }
             }
+
 
             Consumption consumption = new Consumption(startDate, endDate, value);
 
@@ -182,5 +185,14 @@ public class ConsumptionService {
         }
     }
 
+    public List<LocalDate> getDatesList(List<Consumption> consumptions) {
+        List<LocalDate> dates = new ArrayList<>();
+        for(Consumption consumption: consumptions) {
+            for(LocalDate date = consumption.getStartDate(); !date.isAfter(consumption.getEndDate()); date = date.plusDays(1)) {
+                dates.add(date);
+            }
+        }
+        return dates;
+    }
 
 }
