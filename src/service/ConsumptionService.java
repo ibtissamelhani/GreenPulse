@@ -2,7 +2,7 @@ package service;
 
 import entities.Consumption;
 import entities.User;
-import utils.DateAvailabilityChecker;
+import utils.DateChecker;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -30,11 +30,9 @@ public class ConsumptionService {
 
             // validation des date
             while (true) {
-                System.out.print("Enter start date (format: YYYY-MM-DD) : ");
-                startDate = LocalDate.parse(scanner.nextLine());
+                startDate = DateChecker.isDateValid(scanner,"Enter start date (format: YYYY-MM-DD) : ");
 
-                System.out.print("Enter end date (format: YYYY-MM-DD) : ");
-                endDate = LocalDate.parse(scanner.nextLine());
+                endDate = DateChecker.isDateValid(scanner,"Enter end date (format: YYYY-MM-DD) : ");
 
                 if (!endDate.isBefore(startDate)) {
                     break;
@@ -58,7 +56,7 @@ public class ConsumptionService {
             }
 
             List<LocalDate> datesList = user.getconsumptions() != null ? getDatesList(user.getconsumptions()) : new ArrayList<>();
-            boolean result = DateAvailabilityChecker.isDateAvailable(startDate, endDate, datesList);
+            boolean result = DateChecker.isDateAvailable(startDate, endDate, datesList);
 
             if (result) {
                 Consumption consumption = new Consumption(startDate, endDate, value);
