@@ -40,7 +40,7 @@ public class UserService {
         if (updatedUser != null) {
             updatedUser.setName(name);
             updatedUser.setAge(age);
-            System.out.println("User updated successfully , New information :");
+            System.out.println("User updated successfully , New informations :");
             System.out.println("\n+--------------------+--------------------+--------------------+");
             System.out.printf("| %-18s | %-18s | %-18s |\n", "ID", "Name", "Age");
             System.out.println("+--------------------+--------------------+--------------------+");
