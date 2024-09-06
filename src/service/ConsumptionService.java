@@ -20,57 +20,57 @@ public class ConsumptionService {
         this.scanner = new Scanner(System.in);
     }
 
-    public void addConsumptionToUser(long userId) {
-
-        Float value = null;
-        LocalDate endDate;
-        LocalDate startDate;
-        User user = userService.getUserById(userId);
-        if (user != null) {
-
-            // validation des date
-            while (true) {
-                startDate = DateChecker.isDateValid(scanner,"Enter start date (format: YYYY-MM-DD) : ");
-
-                endDate = DateChecker.isDateValid(scanner,"Enter end date (format: YYYY-MM-DD) : ");
-
-                if (!endDate.isBefore(startDate)) {
-                    break;
-                } else {
-                    System.out.println(" \n End date cannot be before the start date. Please enter valid dates.\n");
-                }
-            }
-
-            // validation value
-            while (value == null) {
-                try {
-                    System.out.print("Enter value: ");
-                    value = Float.parseFloat(scanner.nextLine());
-                    if (value <= 0) {
-                        System.out.println("Value must be a positive number. Please enter a valid value.");
-                        value = null;
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("\n Invalid input! Please enter a valid number.\n");
-                }
-            }
-
-            List<LocalDate> datesList = user.getconsumptions() != null ? getDatesList(user.getconsumptions()) : new ArrayList<>();
-            boolean result = DateChecker.isDateAvailable(startDate, endDate, datesList);
-
-            if (result) {
-                Consumption consumption = new Consumption(startDate, endDate, value);
-
-                userService.addConsumption(user,consumption);
-            } else {
-                System.out.println("Date Already exist ");
-            }
-
-        }else {
-            System.out.println("User not found");
-        }
-
-    }
+//    public void addConsumptionToUser(long userId) {
+//
+//        Float value = null;
+//        LocalDate endDate;
+//        LocalDate startDate;
+//        User user = userService.getUserById(userId);
+//        if (user != null) {
+//
+//            // validation des date
+//            while (true) {
+//                startDate = DateChecker.isDateValid(scanner,"Enter start date (format: YYYY-MM-DD) : ");
+//
+//                endDate = DateChecker.isDateValid(scanner,"Enter end date (format: YYYY-MM-DD) : ");
+//
+//                if (!endDate.isBefore(startDate)) {
+//                    break;
+//                } else {
+//                    System.out.println(" \n End date cannot be before the start date. Please enter valid dates.\n");
+//                }
+//            }
+//
+//            // validation value
+//            while (value == null) {
+//                try {
+//                    System.out.print("Enter value: ");
+//                    value = Float.parseFloat(scanner.nextLine());
+//                    if (value <= 0) {
+//                        System.out.println("Value must be a positive number. Please enter a valid value.");
+//                        value = null;
+//                    }
+//                } catch (NumberFormatException e) {
+//                    System.out.println("\n Invalid input! Please enter a valid number.\n");
+//                }
+//            }
+//
+//            List<LocalDate> datesList = user.getconsumptions() != null ? getDatesList(user.getconsumptions()) : new ArrayList<>();
+//            boolean result = DateChecker.isDateAvailable(startDate, endDate, datesList);
+//
+//            if (result) {
+//                Consumption consumption = new Consumption(startDate, endDate, value);
+//
+//                userService.addConsumption(user,consumption);
+//            } else {
+//                System.out.println("Date Already exist ");
+//            }
+//
+//        }else {
+//            System.out.println("User not found");
+//        }
+//
+//    }
 
     public float calcTotalConsumption(long userId) {
         User user = userService.getUserById(userId);
