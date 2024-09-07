@@ -42,3 +42,9 @@ CREATE TABLE food (
         weight DOUBLE PRECISION NOT NULL,
         consumption_id INT REFERENCES consumption(id) ON DELETE CASCADE
 );
+
+-- add new users
+INSERT INTO users (name, age)
+VALUES ('Ibtissam elh', 23),
+       ('nabil Smith', 25),
+       ('mbarek Johnson', 40);
