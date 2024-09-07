@@ -24,7 +24,7 @@ public class ConsumptionUI {
         System.out.print("Enter user Id: ");
         long userId = scanner.nextLong();
         scanner.nextLine();
-        consumptionService.addConsumptionToUser(userId);
+//        consumptionService.addConsumptionToUser(userId);
     }
 
     public void ShowTotalConsumption(){
