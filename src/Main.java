@@ -1,5 +1,5 @@
-import connection.DBConfiguration;
-import ui.Menu;
+
+import database.DBConfiguration;
 
 import java.sql.Connection;
 
@@ -19,9 +19,11 @@ public class Main {
         System.out.println(" ");
         System.out.println("                          Hello and welcome to GreenPulse!           "+RESET);
 
-        Connection conn = DBConfiguration.getConnection();
-        Connection conn1 = DBConfiguration.getConnection();
-        Connection conn2 = DBConfiguration.getConnection();
+        DBConfiguration dbConfig = DBConfiguration.getInstance();
+//        DBConfiguration dbConfig1 = DBConfiguration.getInstance();
+
+
+
 
 //        Menu menu = new Menu();
 //        menu.start();
