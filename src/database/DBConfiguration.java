@@ -11,7 +11,7 @@ public class DBConfiguration {
     private static final String USER = "GreenPulse";
     private static final String PASSWORD = "";
     private static DBConfiguration instance;
-    private Connection connection;
+    private static Connection connection;
 
     private DBConfiguration() {
         try {
@@ -30,7 +30,7 @@ public class DBConfiguration {
         return instance;
     }
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         return connection;
     }
 
