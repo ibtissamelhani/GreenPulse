@@ -1,6 +1,5 @@
 package ui;
 
-import entities.Consumption;
 import entities.User;
 import service.UserService;
 
@@ -21,8 +20,13 @@ public class AccountUI {
 
     public void createAccount(){
         System.out.println(" Create New Account ");
+
+        System.out.print("Enter Your cin: ");
+        String cin = scanner.next();
+
         System.out.print("Enter Your Name: ");
         String name = scanner.next();
+
         int age = -1;
         while(age<=0 || age>100){
             System.out.print("Enter Your Age: ");
@@ -36,16 +40,24 @@ public class AccountUI {
                 scanner.next();
             }
         }
-        userService.createUser(name, age);
+        User savedUser = userService.createUser(cin,name,age);
+        if (savedUser !=null) {
+            System.out.println("\n account created successfully ");
+            System.out.println("\n+--------------------+--------------------+--------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s |\n","CIN", "Name", "Age");
+            System.out.println("+--------------------+--------------------+--------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s |\n", savedUser.getCin(), savedUser.getName(), savedUser.getAge());
+            System.out.println("+--------------------+--------------------+--------------------+\n");
+        };
     }
 
     public void modifyAccount(){
         System.out.println("\n Modify Account");
-        System.out.print("Enter user id: ");
-        long id = scanner.nextLong();
-        User currentUser = userService.getUserById(id);
-        if (currentUser != null){
-            System.out.print("\nid: " + currentUser.getId() + "  name: " + currentUser.getName() + " age: " + currentUser.getAge() + " \n");
+        System.out.print("Enter user CIN: ");
+        String cin = scanner.next();
+
+        userService.getUserByCin(cin).ifPresent(user -> {
+            System.out.print("\n id: " + user.getId() + "  name: " + user.getName() + " age: " + user.getAge() + " \n");
             System.out.print("Enter new Name : ");
             String name = scanner.next();
             int age = -1;
@@ -61,29 +73,28 @@ public class AccountUI {
                     scanner.next();
                 }
             }
-            userService.updateUser(id,name,age);
-        }else {
-            System.out.println("User not found");
-        }
+            userService.updateUser(cin,name,age);
+        });
+
     }
 
     public void deleteAccount(){
-        System.out.print("Enter user ID: ");
-        long id = scanner.nextLong();
-        userService.deleteUser(id);
+        System.out.print("Enter user CIN to delete: ");
+        String cin = scanner.next();
+        userService.deleteUser(cin);
+        System.out.println("\n account deleted successfully ");
     }
 
     public void showAllAccounts(){
         System.out.println(RED+"******************************  List of All Accounts ***********************************"+RESET);
         List<User> users = userService.getAllUsers();
         if(!users.isEmpty()){
+            System.out.println("\n+--------------------+--------------------+--------------------+-------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n","ID", "CIN", "Name", "Age");
+            System.out.println("+--------------------+--------------------+--------------------+-------------------+");
             for (User user : users){
-                System.out.print("id: " + user.getId() + "  name: " + user.getName() + " age: " + user.getAge() + "\n");
-                if (user.getconsumptions() != null){
-                    for (Consumption consumption: user.getconsumptions()){
-                        System.out.println("consumption between " + consumption.getStartDate() +" and "+consumption.getEndDate() + " is " + consumption.getValue());
-                    }
-                }
+                System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge());
+                System.out.println("+--------------------+--------------------+--------------------+-------------------+");
             }
         }else {
             System.out.println("\n Users not found \n");

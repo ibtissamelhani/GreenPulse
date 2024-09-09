@@ -1,6 +1,7 @@
 
 CREATE TABLE users (
         id SERIAL PRIMARY KEY,
+        cin VARCHAR(50) unique not null,
         name VARCHAR(100) NOT NULL,
         age INT NOT NULL
 );
@@ -44,7 +45,8 @@ CREATE TABLE food (
 );
 
 -- add new users
-INSERT INTO users (name, age)
-VALUES ('Ibtissam elh', 23),
-       ('nabil Smith', 25),
-       ('mbarek Johnson', 40);
+INSERT INTO users (cin,name, age)
+VALUES ('p123dfgh','Ibtissam elh', 23),
+       ('p123fvvb','nabil Smith', 25),
+       ('p123vbn','mbarek Johnson', 40);
+

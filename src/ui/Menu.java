@@ -1,13 +1,18 @@
 package ui;
 
+import database.DBConfiguration;
+import repository.UserRepository;
 import service.ConsumptionService;
 import service.UserService;
 
+import java.sql.Connection;
 import java.util.Scanner;
 
 public class Menu {
 
-    private final UserService userService = new UserService();
+    private final Connection connection = DBConfiguration.getConnection() ;
+    private final UserRepository userRepository = new UserRepository(connection);
+    private final UserService userService = new UserService(userRepository);
     private final ConsumptionService consumptionService = new ConsumptionService(userService);
     private final AccountUI accountUI = new AccountUI(userService);
     private final ConsumptionUI consumptionUI = new ConsumptionUI(consumptionService);
@@ -115,21 +120,21 @@ public class Menu {
             System.out.print("enter your choice: ");
             String choice = scanner.nextLine();
             switch(choice){
-                case "1":
-                    consumptionUI.AddNewConsumption();
-                    break;
-                case "2":
-                    consumptionUI.ShowTotalConsumption();
-                    break;
-                case "3":
-                    consumptionUI.dailyConsumption();
-                    break;
-                case "4":
-                    consumptionUI.weeklyConsumption();
-                    break;
-                case "5":
-                    consumptionUI.monthlyConsumption();
-                    break;
+//                case "1":
+//                    consumptionUI.AddNewConsumption();
+//                    break;
+//                case "2":
+//                    consumptionUI.ShowTotalConsumption();
+//                    break;
+//                case "3":
+//                    consumptionUI.dailyConsumption();
+//                    break;
+//                case "4":
+//                    consumptionUI.weeklyConsumption();
+//                    break;
+//                case "5":
+//                    consumptionUI.monthlyConsumption();
+//                    break;
                 case "6":
                     quit = true;
                     System.out.println("return to principal menu");
