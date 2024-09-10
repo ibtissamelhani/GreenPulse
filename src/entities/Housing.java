@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Housing extends Consumption {
     private int id;
     private  Double energyConsumption;
-    private String energyTypes;
+    private String energyType;
 
     public Housing() {
     }
@@ -14,7 +14,7 @@ public class Housing extends Consumption {
         super(startDate, endDate, value);
         this.id = id;
         this.energyConsumption = energyConsumption;
-        this.energyTypes = energyTypes;
+        this.energyType = energyTypes;
     }
 
     public int getId() {
@@ -33,12 +33,12 @@ public class Housing extends Consumption {
         this.energyConsumption = energyConsumption;
     }
 
-    public String getEnergyTypes() {
-        return energyTypes;
+    public String getEnergyType() {
+        return energyType;
     }
 
-    public void setEnergyTypes(String energyTypes) {
-        this.energyTypes = energyTypes;
+    public void setEnergyType(String energyTypes) {
+        this.energyType = energyType;
     }
 
     public int calcImpact() {

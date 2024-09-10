@@ -148,7 +148,7 @@ public class UserRepository {
                         case HOUSING:
                             Housing housing = new Housing();
                             housing.setEnergyConsumption(result.getDouble("energy_consumption"));
-                            housing.setEnergyTypes(result.getString("energy_type"));
+                            housing.setEnergyType(result.getString("energy_type"));
                             consumption = housing;
                             break;
                         case FOOD:
