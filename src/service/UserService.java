@@ -1,11 +1,13 @@
 package service;
 
+import entities.Consumption;
 import entities.User;
 import repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 public class UserService {
@@ -52,5 +54,18 @@ public class UserService {
 
     public List<User> getUsersWithConsumptions() {
         return userRepository.getAllUsersWithConsumptions();
+    }
+
+    public List<User> getUsers() {
+
+        List<User> users = getUsersWithConsumptions();
+        return users.stream()
+                .filter(user ->
+                        user.getConsumptions()
+                                .stream()
+                                .mapToDouble(Consumption::getConsumptionImpact)
+                                .sum() > 3000
+                        ).collect(Collectors.toList());
+
     }
 }

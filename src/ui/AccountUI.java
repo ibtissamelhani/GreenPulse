@@ -128,4 +128,22 @@ public class AccountUI {
 
     }
 
+    public void ShowAllUsersWithSpeConsumption(){
+        System.out.println(RED+"******************************  List of All Accounts ***********************************"+RESET);
+        List<User> users = userService.getUsers();
+        if(!users.isEmpty()){
+            System.out.println("\n+--------------------+--------------------+--------------------+-------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n","ID", "CIN", "Name", "Age");
+            System.out.println("+--------------------+--------------------+--------------------+-------------------+");
+            for (User user : users){
+                System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge());
+                System.out.println("+--------------------+--------------------+--------------------+-------------------+");
+            }
+        }else {
+            System.out.println("\n Users not found \n");
+        }
+        System.out.println(RED+"****************************************************************************************"+RESET);
+
+    }
+
 }

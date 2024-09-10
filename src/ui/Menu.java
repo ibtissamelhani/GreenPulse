@@ -74,8 +74,9 @@ public class Menu {
             System.out.println("*       2. Modify Account                                                       *");
             System.out.println("*       3. Delete Account                                                       *");
             System.out.println("*       4. Show All Accounts                                                    *");
-            System.out.println("*       5. Return to Main Menu                                                  *");
-            System.out.println("*       6. Exit                                                                 *");
+            System.out.println("*       5. Users with a total consumption greater than 3000 KgCO2eq                                                   *");
+            System.out.println("*       6. Return to Main Menu                                                  *");
+            System.out.println("*       7. Exit                                                                 *");
             System.out.println("********************************************************************************"+RESET);
 
             System.out.print("enter your choice: ");
@@ -94,10 +95,13 @@ public class Menu {
                     accountUI.showAllAccounts();
                     break;
                 case "5":
+                    accountUI.ShowAllUsersWithSpeConsumption();
+                    break;
+                case "6":
                         quit = true;
                         System.out.println("return to principal menu");
                         break;
-                case "6":
+                case "7":
                         System.out.println("exit");
                         System.exit(0);
                 default:

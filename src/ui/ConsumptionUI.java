@@ -2,7 +2,6 @@ package ui;
 
 import service.ConsumptionService;
 
-import java.time.LocalDate;
 import java.util.Scanner;
 
 public class ConsumptionUI {
@@ -26,7 +25,7 @@ public class ConsumptionUI {
         scanner.nextLine();
         consumptionService.addConsumptionToUser(cin);
     }
-//
+
 //    public void ShowTotalConsumption(){
 //        System.out.println("\n Total Consumption \n");
 //        System.out.print("Enter user Id: ");
