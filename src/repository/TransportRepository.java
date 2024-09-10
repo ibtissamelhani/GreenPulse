@@ -1,5 +1,7 @@
 package repository;
 
+import database.DBConfiguration;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -9,7 +11,7 @@ public class TransportRepository {
     private final Connection connection;
 
     public TransportRepository(Connection connection) {
-        this.connection = connection;
+        this.connection = DBConfiguration.getInstance().getConnection();
     }
 
     public void save(Double distanceTraveled,String vehicleType,int consumptionId) {

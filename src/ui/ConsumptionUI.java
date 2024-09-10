@@ -21,10 +21,10 @@ public class ConsumptionUI {
 
         System.out.println("Add new Consumption \n");
 
-        System.out.print("Enter user Id: ");
-        long userId = scanner.nextLong();
+        System.out.print("Enter user cin: ");
+        String cin = scanner.next();
         scanner.nextLine();
-//        consumptionService.addConsumptionToUser(userId);
+        consumptionService.addConsumptionToUser(cin);
     }
 //
 //    public void ShowTotalConsumption(){

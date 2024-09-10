@@ -14,10 +14,11 @@ public abstract class Consumption {
     public Consumption() {
     }
 
-    public Consumption(LocalDate startDate, LocalDate endDate, Float value) {
+    public Consumption(LocalDate startDate, LocalDate endDate, Float value, ConsumptionType consumptionType) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.value = value;
+        this.consumptionType = consumptionType;
     }
 
     public int getId() {
@@ -68,7 +69,7 @@ public abstract class Consumption {
         this.consumptionType = consumptionType;
     }
 
-    public abstract int calcImpact();
+    public abstract double calculerImpact();
 
     @Override
     public String toString() {

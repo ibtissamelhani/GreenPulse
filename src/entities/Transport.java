@@ -10,9 +10,8 @@ public class Transport extends Consumption {
     public Transport() {
     }
 
-    public Transport(LocalDate startDate, LocalDate endDate, Float value, int id, Double distanceTraveled, String vehicleType) {
-        super(startDate, endDate, value);
-        this.id = id;
+    public Transport(LocalDate startDate, LocalDate endDate, Float value, ConsumptionType consumptionType, Double distanceTraveled, String vehicleType) {
+        super(startDate, endDate, value, consumptionType);
         this.distanceTraveled = distanceTraveled;
         this.vehicleType = vehicleType;
     }
@@ -41,8 +40,14 @@ public class Transport extends Consumption {
         this.vehicleType = vehicleType;
     }
 
-    public int calcImpact() {
-        System.out.println("transport impact");
-        return 0;
-    };
+    @Override
+    public double calculerImpact() {
+        double impact = 0.0;
+        if ("car".equalsIgnoreCase(vehicleType)) {
+            impact = distanceTraveled * 0.5;
+        } else if ("train".equalsIgnoreCase(vehicleType)) {
+            impact = distanceTraveled * 0.1;
+        }
+        return impact;
+    }
 }

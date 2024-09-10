@@ -10,11 +10,10 @@ public class Housing extends Consumption {
     public Housing() {
     }
 
-    public Housing(LocalDate startDate, LocalDate endDate, Float value, int id, Double energyConsumption, String energyTypes) {
-        super(startDate, endDate, value);
-        this.id = id;
+    public Housing(LocalDate startDate, LocalDate endDate, Float value, ConsumptionType consumptionType, Double energyConsumption, String energyType) {
+        super(startDate, endDate, value, consumptionType);
         this.energyConsumption = energyConsumption;
-        this.energyType = energyTypes;
+        this.energyType = energyType;
     }
 
     public int getId() {
@@ -41,8 +40,14 @@ public class Housing extends Consumption {
         this.energyType = energyType;
     }
 
-    public int calcImpact() {
-        System.out.println("housing impact");
-        return 0;
-    };
+    @Override
+    public double calculerImpact() {
+        double impact = 0.0;
+        if ("electricity".equalsIgnoreCase(energyType)) {
+            impact = energyConsumption * 1.5;
+        } else if ("gas".equalsIgnoreCase(energyType)) {
+            impact = energyConsumption * 2.0;
+        }
+        return impact;
+    }
 }

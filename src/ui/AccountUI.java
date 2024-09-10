@@ -13,6 +13,8 @@ public class AccountUI {
     private  final Scanner scanner;
     final String RESET = "\u001B[0m";
     final String RED = "\u001B[31m";
+    final String GREEN = "\u001B[32m";
+
 
     public AccountUI(UserService userService) {
         this.userService = userService;
@@ -109,13 +111,14 @@ public class AccountUI {
         List<User> users = userService.getUsersWithConsumptions();
         if(!users.isEmpty()){
             for (User user : users){
-                System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge());
+                System.out.printf(GREEN+"\n| %-18s | %-18s | %-18s | %-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge() +RESET);
+                System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+");
+                System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s | %-18s |\n","ID", "start_date", "end_date", "value","impact","type");
+                System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+");
+
                 for(Consumption consumption: user.getConsumptions()){
-                    System.out.println("\n+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+");
-                    System.out.printf("| %-18s | %-18s | %-18s |%-18s |%-18s |%-18s |%-18s |%-18s |%-18s |\n", "ID", "start_date", "end_date","value","impact","type");
-                    System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+");
-                    System.out.printf("| %-18s | %-18s | %-18s |%-18s |%-18s |%-18s |%-18s |%-18s |%-18s |\n", consumption.getId(), consumption.getStartDate(), consumption.getEndDate() , consumption.getValue(), consumption.getConsumptionImpact(), consumption.getConsumptionType());
-                    System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+");
+                    System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s | %-18s |\n",consumption.getId(), consumption.getStartDate(), consumption.getEndDate(), consumption.getValue(), consumption.getConsumptionImpact(), consumption.getConsumptionType());
+                    System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+");
                 }
             }
         }else {

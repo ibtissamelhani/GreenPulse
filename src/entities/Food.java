@@ -7,9 +7,9 @@ public class Food extends Consumption{
     private String typeOfFood;
     private Double weight;
 
-    public Food(LocalDate startDate, LocalDate endDate, Float value, int id, String typeOfFood, Double weight) {
-        super(startDate, endDate, value);
-        this.id = id;
+
+    public Food(LocalDate startDate, LocalDate endDate, Float value, ConsumptionType consumptionType, String typeOfFood, Double weight) {
+        super(startDate, endDate, value, consumptionType);
         this.typeOfFood = typeOfFood;
         this.weight = weight;
     }
@@ -41,8 +41,14 @@ public class Food extends Consumption{
         this.weight = weight;
     }
 
-    public int calcImpact() {
-        System.out.println("food impact");
-        return 0;
-    };
+    @Override
+    public double calculerImpact() {
+        double impact = 0.0;
+        if ("meat".equalsIgnoreCase(typeOfFood)) {
+            impact = weight * 5.0;
+        } else if ("vegetable".equalsIgnoreCase(typeOfFood)) {
+            impact = weight * 0.5;
+        }
+        return impact;
+    }
 }

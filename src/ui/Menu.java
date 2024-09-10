@@ -1,7 +1,7 @@
 package ui;
 
 import database.DBConfiguration;
-import repository.UserRepository;
+import repository.*;
 import service.ConsumptionService;
 import service.UserService;
 
@@ -11,9 +11,13 @@ import java.util.Scanner;
 public class Menu {
 
     private final Connection connection = DBConfiguration.getConnection() ;
+    private final ConsumptionRepository consumptionRepository = new ConsumptionRepository(connection);
+    private final FoodRepository foodRepository = new FoodRepository(connection);
+    private final TransportRepository transportRepository = new TransportRepository(connection);
+    private final HousingRepository housingRepository = new HousingRepository(connection);
     private final UserRepository userRepository = new UserRepository(connection);
     private final UserService userService = new UserService(userRepository);
-    private final ConsumptionService consumptionService = new ConsumptionService(userService);
+    private final ConsumptionService consumptionService = new ConsumptionService(userService,consumptionRepository,foodRepository,housingRepository,transportRepository);
     private final AccountUI accountUI = new AccountUI(userService);
     private final ConsumptionUI consumptionUI = new ConsumptionUI(consumptionService);
 
@@ -120,9 +124,9 @@ public class Menu {
             System.out.print("enter your choice: ");
             String choice = scanner.nextLine();
             switch(choice){
-//                case "1":
-//                    consumptionUI.AddNewConsumption();
-//                    break;
+                case "1":
+                    consumptionUI.AddNewConsumption();
+                    break;
 //                case "2":
 //                    consumptionUI.ShowTotalConsumption();
 //                    break;
