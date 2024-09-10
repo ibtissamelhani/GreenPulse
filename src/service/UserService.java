@@ -50,4 +50,7 @@ public class UserService {
         return userRepository.findByCin(cin);
     }
 
+    public List<User> getUsersWithConsumptions() {
+        return userRepository.getAllUsersWithConsumptions();
+    }
 }

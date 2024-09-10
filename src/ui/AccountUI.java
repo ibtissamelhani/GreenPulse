@@ -1,5 +1,6 @@
 package ui;
 
+import entities.Consumption;
 import entities.User;
 import service.UserService;
 
@@ -95,6 +96,27 @@ public class AccountUI {
             for (User user : users){
                 System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge());
                 System.out.println("+--------------------+--------------------+--------------------+-------------------+");
+            }
+        }else {
+            System.out.println("\n Users not found \n");
+        }
+        System.out.println(RED+"****************************************************************************************"+RESET);
+
+    }
+
+    public void showAllUsersWithConsumption(){
+        System.out.println(RED+"******************************  List of All Accounts ***********************************"+RESET);
+        List<User> users = userService.getUsersWithConsumptions();
+        if(!users.isEmpty()){
+            for (User user : users){
+                System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge());
+                for(Consumption consumption: user.getConsumptions()){
+                    System.out.println("\n+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+");
+                    System.out.printf("| %-18s | %-18s | %-18s |%-18s |%-18s |%-18s |%-18s |%-18s |%-18s |\n", "ID", "start_date", "end_date","value","impact","type");
+                    System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+");
+                    System.out.printf("| %-18s | %-18s | %-18s |%-18s |%-18s |%-18s |%-18s |%-18s |%-18s |\n", consumption.getId(), consumption.getStartDate(), consumption.getEndDate() , consumption.getValue(), consumption.getConsumptionImpact(), consumption.getConsumptionType());
+                    System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+-------------------+-------------------+-------------------+");
+                }
             }
         }else {
             System.out.println("\n Users not found \n");

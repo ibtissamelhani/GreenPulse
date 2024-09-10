@@ -53,11 +53,11 @@ public class User {
         this.age = age;
     }
 
-    public List<Consumption> getconsumptions() {
+    public List<Consumption> getConsumptions() {
         return consumptions;
     }
 
-    public void setconsumptions(List<Consumption> consumptions) {
+    public void setConsumptions(List<Consumption> consumptions) {
         this.consumptions = consumptions;
     }
 

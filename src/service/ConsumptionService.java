@@ -55,7 +55,7 @@ public class ConsumptionService {
 //                }
 //            }
 //
-//            List<LocalDate> datesList = user.getconsumptions() != null ? getDatesList(user.getconsumptions()) : new ArrayList<>();
+//            List<LocalDate> datesList = user.getConsumptions() != null ? getDatesList(user.getConsumptions()) : new ArrayList<>();
 //            boolean result = DateChecker.isDateAvailable(startDate, endDate, datesList);
 //
 //            if (result) {
@@ -76,7 +76,7 @@ public class ConsumptionService {
 //        User user = userService.getUserById(userId);
 //        if (user != null) {
 //            Float totalConsumption = 0.0f;
-//            for(Consumption consumption: user.getconsumptions()){
+//            for(Consumption consumption: user.getConsumptions()){
 //                totalConsumption += consumption.getValue();
 //            }
 //            return totalConsumption;
@@ -90,7 +90,7 @@ public class ConsumptionService {
 //        User user = userService.getUserById(userID);
 //        if (user != null) {
 //            float dailyConsumption = 0f;
-//            for(Consumption consumption: user.getconsumptions()) {
+//            for(Consumption consumption: user.getConsumptions()) {
 //                if (!date.isBefore(consumption.getStartDate()) && !date.isAfter(consumption.getEndDate())) {
 //                    Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) +1 ;
 //                    float result = consumption.getValue() / numOfDays;
@@ -113,7 +113,7 @@ public class ConsumptionService {
 //            float weeklyConsumption = 0f;
 //            LocalDate weekEndDay = weekStartDay.plusDays(6);
 //
-//            for (Consumption consumption : user.getconsumptions()) {
+//            for (Consumption consumption : user.getConsumptions()) {
 //
 //                if (!weekEndDay.isBefore(consumption.getStartDate()) && !weekStartDay.isAfter(consumption.getEndDate())) {
 //                    Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) + 1;
@@ -158,7 +158,7 @@ public class ConsumptionService {
 //            float monthlyConsumption = 0f;
 //            LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
 //
-//            for (Consumption consumption : user.getconsumptions()) {
+//            for (Consumption consumption : user.getConsumptions()) {
 //                if (!monthEnd.isBefore(consumption.getStartDate()) && !monthStart.isAfter(consumption.getEndDate())) {
 //                    Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) + 1;
 //                    Float dailyValue = consumption.getValue() / numOfDays;

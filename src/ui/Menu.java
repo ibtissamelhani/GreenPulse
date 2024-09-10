@@ -34,7 +34,7 @@ public class Menu {
             System.out.println("*                                  Principal Menu                               *");
             System.out.println("********************************************************************************");
             System.out.println("*  1. Account Management                                                        *");
-            System.out.println("*  2. Show all Accounts                                                         *");
+            System.out.println("*  2. Show all users                                                         *");
             System.out.println("*  3. Carbon Consumption Menu                                                   *");
             System.out.println("*  4. Exit                                                                      *");
             System.out.println("********************************************************************************\n");
@@ -46,7 +46,7 @@ public class Menu {
                     AccountManagement();
                     break;
                 case "2":
-                    accountUI.showAllAccounts();
+                    accountUI.showAllUsersWithConsumption();
                     break;
                 case "3":
                     ConsumptionMenu();
