@@ -117,11 +117,12 @@ public class Menu {
             System.out.println("*********************************************************************************");
             System.out.println("*       1. Add New Consumption                                                   *");
             System.out.println("*       2. Show total consumption of user                                        *");
-            System.out.println("*       3. Show Daily consumption                                                *");
-            System.out.println("*       4. Show Weekly consumption                                               *");
-            System.out.println("*       5. Show Monthly consumption                                              *");
-            System.out.println("*       6. Return to Main Menu                                                   *");
-            System.out.println("*       7. Exit                                                                  *");
+            System.out.println("*       3. Daily consumption                                                *");
+            System.out.println("*       4. Weekly consumption                                               *");
+            System.out.println("*       5. Monthly consumption                                              *");
+            System.out.println("*       6. Average consumption in a given period                                          *");
+            System.out.println("*       7. Return to Main Menu                                                   *");
+            System.out.println("*       8. Exit                                                                  *");
             System.out.println("********************************************************************************"+RESET);
 
             System.out.print("enter your choice: ");
@@ -143,8 +144,7 @@ public class Menu {
 //                    consumptionUI.monthlyConsumption();
 //                    break;
                 case "6":
-                    quit = true;
-                    System.out.println("return to principal menu");
+                    consumptionUI.calcAverageConsumption();
                     break;
                 case "7":
                     System.out.println("exit...");

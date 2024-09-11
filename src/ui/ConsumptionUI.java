@@ -1,7 +1,10 @@
 package ui;
 
 import service.ConsumptionService;
+import utils.DateChecker;
 
+import java.time.LocalDate;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ConsumptionUI {
@@ -31,7 +34,28 @@ public class ConsumptionUI {
         System.out.print("Enter user CIN: ");
         String cin = scanner.next();
         Double result = consumptionService.calcTotalConsumption(cin);
-        System.out.println("\nTotal carbon consumption of user " + cin + "is : " + result);
+        System.out.println("\nTotal carbon consumption of user " + cin + "is : " + result +"  KgCO2eq");
+    }
+
+    public void calcAverageConsumption(){
+        System.out.println("\n Average Consumption \n");
+        LocalDate startDate;
+        LocalDate endDate;
+        System.out.print("Enter user CIN: ");
+        String cin = scanner.next();
+        while (true) {
+            startDate = DateChecker.isDateValid(scanner,"Enter start date (format: YYYY-MM-DD) : ");
+
+            endDate = DateChecker.isDateValid(scanner,"Enter end date (format: YYYY-MM-DD) : ");
+
+            if (!endDate.isBefore(startDate)) {
+                break;
+            } else {
+                System.out.println(" \n End date cannot be before the start date. Please enter valid dates.\n");
+            }
+        }
+        Double result = consumptionService.calcAverageConsumption(cin, startDate, endDate);
+        System.out.println("\n Average consumption of user : " + cin + " in period between  : " +startDate +" & "+endDate+ " is : " + result +"  KgCO2eq");
     }
 //
 //    public void dailyConsumption() {

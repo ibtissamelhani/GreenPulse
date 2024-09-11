@@ -1,7 +1,10 @@
 package utils;
 
+import entities.Consumption;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -26,5 +29,13 @@ public class DateChecker {
                 System.out.println("Invalid date format or value! Please enter a valid date in the format YYYY-MM-DD.");
             }
         }
+    }
+
+    public static List<LocalDate> getDatesList(LocalDate startDate, LocalDate endDate) {
+        List<LocalDate> dates = new ArrayList<>();
+            for(LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
+                dates.add(date);
+            }
+        return dates;
     }
 }

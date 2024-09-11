@@ -141,6 +141,12 @@ public class ConsumptionService {
         Optional<User> user = userService.getUserWithConsumptions(cin);
         return user.get().getConsumptions().stream().mapToDouble(Consumption::calculerImpact).sum() ;
     }
+
+    public Double calcAverageConsumption(String cin, LocalDate startDate, LocalDate endDate) {
+        Optional<User> user = userService.getUserWithConsumptions(cin);
+        List<LocalDate> period = DateChecker.getDatesList(startDate, endDate);
+        return user.get().getConsumptions().stream().mapToDouble(Consumption::calculerImpact).sum() / period.size() ;
+    }
 //
 //    public float getDailyConsumption(Long userID, LocalDate date) {
 //        User user = userService.getUserById(userID);
@@ -246,14 +252,6 @@ public class ConsumptionService {
 //        }
 //    }
 //
-        public List<LocalDate> getDatesList(List<Consumption> consumptions) {
-            List<LocalDate> dates = new ArrayList<>();
-            for(Consumption consumption: consumptions) {
-                for(LocalDate date = consumption.getStartDate(); !date.isAfter(consumption.getEndDate()); date = date.plusDays(1)) {
-                    dates.add(date);
-                }
-            }
-            return dates;
-        }
+
 
 }
