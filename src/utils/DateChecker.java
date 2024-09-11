@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DateChecker {
 
@@ -32,10 +33,7 @@ public class DateChecker {
     }
 
     public static List<LocalDate> getDatesList(LocalDate startDate, LocalDate endDate) {
-        List<LocalDate> dates = new ArrayList<>();
-            for(LocalDate date = startDate; !date.isAfter(endDate); date = date.plusDays(1)) {
-                dates.add(date);
-            }
-        return dates;
+        LocalDate currentDate = endDate.plusDays(1);
+        return startDate.datesUntil(currentDate).collect(Collectors.toList());
     }
 }

@@ -73,9 +73,10 @@ public class Menu {
             System.out.println("*       2. Modify Account                                                       *");
             System.out.println("*       3. Delete Account                                                       *");
             System.out.println("*       4. Show All Accounts                                                    *");
-            System.out.println("*       5. Users with a total consumption greater than 3000 KgCO2eq                                                   *");
-            System.out.println("*       6. Return to Main Menu                                                  *");
-            System.out.println("*       7. Exit                                                                 *");
+            System.out.println("*       5. Users with a total consumption greater than 3000 KgCO2eq             *");
+            System.out.println("*       6. Inactive users in a given period                                     *");
+            System.out.println("*       7. Return to Main Menu                                                  *");
+            System.out.println("*       8. Exit                                                                 *");
             System.out.println("********************************************************************************"+RESET);
 
             System.out.print("enter your choice: ");
@@ -97,10 +98,13 @@ public class Menu {
                     accountUI.ShowAllUsersWithSpeConsumption();
                     break;
                 case "6":
+                    accountUI.showInactiveUsers();
+                    break;
+                case "7":
                         quit = true;
                         System.out.println("return to principal menu");
                         break;
-                case "7":
+                case "8":
                         System.out.println("exit");
                         System.exit(0);
                 default:
@@ -117,10 +121,10 @@ public class Menu {
             System.out.println("*********************************************************************************");
             System.out.println("*       1. Add New Consumption                                                   *");
             System.out.println("*       2. Show total consumption of user                                        *");
-            System.out.println("*       3. Daily consumption                                                *");
-            System.out.println("*       4. Weekly consumption                                               *");
-            System.out.println("*       5. Monthly consumption                                              *");
-            System.out.println("*       6. Average consumption in a given period                                          *");
+            System.out.println("*       3. Daily consumption                                                     *");
+            System.out.println("*       4. Weekly consumption                                                    *");
+            System.out.println("*       5. Monthly consumption                                                   *");
+            System.out.println("*       6. Average consumption in a given period                                 *");
             System.out.println("*       7. Return to Main Menu                                                   *");
             System.out.println("*       8. Exit                                                                  *");
             System.out.println("********************************************************************************"+RESET);
@@ -147,6 +151,10 @@ public class Menu {
                     consumptionUI.calcAverageConsumption();
                     break;
                 case "7":
+                    quit = true;
+                    System.out.println("return to principal menu");
+                    break;
+               case "8":
                     System.out.println("exit...");
                     System.exit(0);
                 default:

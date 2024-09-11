@@ -3,7 +3,9 @@ package service;
 import entities.Consumption;
 import entities.User;
 import repository.UserRepository;
+import utils.DateChecker;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -73,5 +75,17 @@ public class UserService {
         List<User> users = getUsersWithConsumptions();
 
         return users.stream().filter(user -> user.getCin().equals(cin)).findFirst();
+    }
+
+    public List<User> getInactiveUsers(LocalDate startDate, LocalDate endDate) {
+        List<LocalDate> period = DateChecker.getDatesList(startDate, endDate);
+        List<User> users = getUsersWithConsumptions();
+
+        return users.stream()
+                .filter(user -> user.getConsumptions()
+                        .stream()
+                        .filter(consumption -> !DateChecker.isDateAvailable(consumption.getStartDate(), consumption.getEndDate(), period))
+                        .collect(Collectors.toList()).isEmpty()).collect(Collectors.toList())
+                                ;
     }
 }

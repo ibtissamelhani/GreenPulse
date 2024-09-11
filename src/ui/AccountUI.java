@@ -3,8 +3,11 @@ package ui;
 import entities.Consumption;
 import entities.User;
 import service.UserService;
+import utils.DateChecker;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class AccountUI {
@@ -143,6 +146,37 @@ public class AccountUI {
             System.out.println("\n Users not found \n");
         }
         System.out.println(RED+"****************************************************************************************"+RESET);
+
+    }
+
+    public void showInactiveUsers(){
+        LocalDate startDate;
+        LocalDate endDate;
+        while (true) {
+            startDate = DateChecker.isDateValid(scanner,"Enter start date (format: YYYY-MM-DD) : ");
+
+            endDate = DateChecker.isDateValid(scanner,"Enter end date (format: YYYY-MM-DD) : ");
+
+            if (!endDate.isBefore(startDate)) {
+                break;
+            } else {
+                System.out.println(" \n End date cannot be before the start date. Please enter valid dates.\n");
+            }
+        }
+        System.out.println(RED+"************************************************  Inactive accounts Accounts ***********************************"+RESET);
+        List<User> users = userService.getInactiveUsers(startDate, endDate);
+        if(!users.isEmpty()){
+            System.out.println("\n+--------------------+--------------------+--------------------+-------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n","ID", "CIN", "Name", "Age");
+            System.out.println("+--------------------+--------------------+--------------------+-------------------+");
+            for (User user : users){
+                System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge());
+                System.out.println("+--------------------+--------------------+--------------------+-------------------+");
+            }
+        }else {
+            System.out.println("\n Users not found \n");
+        }
+        System.out.println(RED+"***********************************************************************************************************************"+RESET);
 
     }
 
