@@ -60,12 +60,18 @@ public class UserService {
 
         List<User> users = getUsersWithConsumptions();
         return users.stream()
-                .filter(user ->
-                        user.getConsumptions()
-                                .stream()
-                                .mapToDouble(Consumption::getConsumptionImpact)
-                                .sum() > 3000
-                        ).collect(Collectors.toList());
+                .filter(user -> {
+                                return user.getConsumptions()
+                                    .stream()
+                                    .mapToDouble(Consumption::calculerImpact)
+                                    .sum() > 3000;
+                        }).collect(Collectors.toList());
 
+    }
+
+    public Optional<User> getUserWithConsumptions(String cin) {
+        List<User> users = getUsersWithConsumptions();
+
+        return users.stream().filter(user -> user.getCin().equals(cin)).findFirst();
     }
 }

@@ -105,10 +105,10 @@ public class ConsumptionService {
                     break;
 
                 case FOOD:
-                    System.out.print("Enter type of food: ");
+                    System.out.print("Enter type of food (meat - vegetable): ");
                     String typeOfFood = scanner.nextLine();
 
-                    System.out.print("Enter weight (meat - vegetable): ");
+                    System.out.print("Enter weight : ");
                     double weight = Double.parseDouble(scanner.nextLine());
 
                     consumption = new Food(startDate, endDate, value,consumptionType, typeOfFood, weight);
@@ -137,19 +137,10 @@ public class ConsumptionService {
         }
     }
 
-//    public float calcTotalConsumption(long userId) {
-//        User user = userService.getUserById(userId);
-//        if (user != null) {
-//            Float totalConsumption = 0.0f;
-//            for(Consumption consumption: user.getConsumptions()){
-//                totalConsumption += consumption.getValue();
-//            }
-//            return totalConsumption;
-//        }else {
-//            System.out.println("User not found with ID: " + userId);
-//            return 0.0f;
-//        }
-//    }
+    public Double calcTotalConsumption(String cin) {
+        Optional<User> user = userService.getUserWithConsumptions(cin);
+        return user.get().getConsumptions().stream().mapToDouble(Consumption::calculerImpact).sum() ;
+    }
 //
 //    public float getDailyConsumption(Long userID, LocalDate date) {
 //        User user = userService.getUserById(userID);

@@ -24,7 +24,6 @@ public class Menu {
     private final Scanner scanner = new Scanner(System.in);
     private boolean quit = false;
 
-    final String GREEN = "\u001B[32m";
     final String YELLOW = "\u001B[33m";
     final String BLUE = "\u001B[34m";
     final String RESET = "\u001B[0m";
@@ -131,9 +130,9 @@ public class Menu {
                 case "1":
                     consumptionUI.AddNewConsumption();
                     break;
-//                case "2":
-//                    consumptionUI.ShowTotalConsumption();
-//                    break;
+                case "2":
+                    consumptionUI.ShowTotalConsumption();
+                    break;
 //                case "3":
 //                    consumptionUI.dailyConsumption();
 //                    break;

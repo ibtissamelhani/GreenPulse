@@ -129,7 +129,7 @@ public class AccountUI {
     }
 
     public void ShowAllUsersWithSpeConsumption(){
-        System.out.println(RED+"******************************  List of All Accounts ***********************************"+RESET);
+        System.out.println(RED+"******************************  Users with a total consumption greater than 3000 KgCO2eq  ***********************************"+RESET);
         List<User> users = userService.getUsers();
         if(!users.isEmpty()){
             System.out.println("\n+--------------------+--------------------+--------------------+-------------------+");

@@ -26,13 +26,13 @@ public class ConsumptionUI {
         consumptionService.addConsumptionToUser(cin);
     }
 
-//    public void ShowTotalConsumption(){
-//        System.out.println("\n Total Consumption \n");
-//        System.out.print("Enter user Id: ");
-//        long userId = scanner.nextLong();
-//        float result = consumptionService.calcTotalConsumption(userId);
-//        System.out.println("\nTotal carbon consumption of user " + userId + "is : " + result);
-//    }
+    public void ShowTotalConsumption(){
+        System.out.println("\n Total Consumption \n");
+        System.out.print("Enter user CIN: ");
+        String cin = scanner.next();
+        Double result = consumptionService.calcTotalConsumption(cin);
+        System.out.println("\nTotal carbon consumption of user " + cin + "is : " + result);
+    }
 //
 //    public void dailyConsumption() {
 //        System.out.println(" \nDaily Consumption\n");
