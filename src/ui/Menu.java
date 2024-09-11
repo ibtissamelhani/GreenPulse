@@ -37,7 +37,7 @@ public class Menu {
             System.out.println("*                                  Principal Menu                               *");
             System.out.println("********************************************************************************");
             System.out.println("*  1. Account Management                                                        *");
-            System.out.println("*  2. Show all users                                                         *");
+            System.out.println("*  2. Show all users                                                            *");
             System.out.println("*  3. Carbon Consumption Menu                                                   *");
             System.out.println("*  4. Exit                                                                      *");
             System.out.println("********************************************************************************\n");
@@ -75,8 +75,9 @@ public class Menu {
             System.out.println("*       4. Show All Accounts                                                    *");
             System.out.println("*       5. Users with a total consumption greater than 3000 KgCO2eq             *");
             System.out.println("*       6. Inactive users in a given period                                     *");
-            System.out.println("*       7. Return to Main Menu                                                  *");
-            System.out.println("*       8. Exit                                                                 *");
+            System.out.println("*       7. Get Users Sorted By Total Consumption                                *");
+            System.out.println("*       8. Return to Main Menu                                                  *");
+            System.out.println("*       9. Exit                                                                 *");
             System.out.println("********************************************************************************"+RESET);
 
             System.out.print("enter your choice: ");
@@ -101,10 +102,13 @@ public class Menu {
                     accountUI.showInactiveUsers();
                     break;
                 case "7":
+                    accountUI.getUsersSortedByTotalConsumption();
+                    break;
+                case "8":
                         quit = true;
                         System.out.println("return to principal menu");
                         break;
-                case "8":
+                case "9":
                         System.out.println("exit");
                         System.exit(0);
                 default:

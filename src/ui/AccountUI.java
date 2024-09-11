@@ -7,7 +7,6 @@ import utils.DateChecker;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class AccountUI {
@@ -178,6 +177,22 @@ public class AccountUI {
         }
         System.out.println(RED+"***********************************************************************************************************************"+RESET);
 
+    }
+
+    public void getUsersSortedByTotalConsumption() {
+        List<User> users = userService.getUsersSortedByTotalConsumption();
+        System.out.println("Users sorted by total consumption:");
+        if(!users.isEmpty()){
+            System.out.println("\n+--------------------+--------------------+--------------------+-------------------+-------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s |%-18s | %-18s |\n","ID", "CIN", "Name", "Age", "Total Consumption");
+            System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+");
+            for (User user : users){
+                System.out.printf("| %-18s | %-18s | %-18s |%-18s | %-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge(), userService.calcTotalImpact(user));
+                System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+");
+            }
+        }else {
+            System.out.println("\n Users not found \n");
+        }
     }
 
 }

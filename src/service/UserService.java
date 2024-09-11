@@ -6,7 +6,6 @@ import repository.UserRepository;
 import utils.DateChecker;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -87,5 +86,25 @@ public class UserService {
                         .filter(consumption -> !DateChecker.isDateAvailable(consumption.getStartDate(), consumption.getEndDate(), period))
                         .collect(Collectors.toList()).isEmpty()).collect(Collectors.toList())
                                 ;
+    }
+
+    public List<User> getUsersSortedByTotalConsumption() {
+        List<User> users = getUsersWithConsumptions();
+        return users.stream().sorted(
+                (user1, user2) -> {
+                    double totalConsumptionUser1 = user1.getConsumptions().stream()
+                            .mapToDouble(Consumption::calculerImpact)
+                            .sum();
+                    double totalConsumptionUser2 = user2.getConsumptions().stream()
+                            .mapToDouble(Consumption::calculerImpact)
+                            .sum();
+                    return Double.compare(totalConsumptionUser1, totalConsumptionUser2);
+                }
+        ).collect(Collectors.toList());
+    }
+
+    public Double calcTotalImpact(User user) {
+        return user.getConsumptions()
+                .stream().mapToDouble(Consumption::calculerImpact).sum() ;
     }
 }
