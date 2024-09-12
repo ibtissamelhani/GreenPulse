@@ -145,10 +145,16 @@ public class ConsumptionService {
     public Double calcAverageConsumption(String cin, LocalDate startDate, LocalDate endDate) {
         Optional<User> user = userService.getUserWithConsumptions(cin);
         List<LocalDate> period = DateChecker.getDatesList(startDate, endDate);
+
+        long totalSharedDays = user.get().getConsumptions().stream()
+                .filter(consumption -> !DateChecker.isDateAvailable(consumption.getStartDate(), consumption.getEndDate(), period))
+                .mapToLong(consumption -> DateChecker.getSharedDays(consumption.getStartDate(), consumption.getEndDate(), startDate, endDate))
+                .sum();
+
         return user.get().getConsumptions()
                 .stream()
                 .filter(consumption -> !DateChecker.isDateAvailable(consumption.getStartDate(),consumption.getEndDate(),period))
-                .mapToDouble(Consumption::calculerImpact).sum() / period.size() ;
+                .mapToDouble(Consumption::calculerImpact).sum() / totalSharedDays ;
     }
 
     public Double getDailyConsumption(String cin, LocalDate date) {
