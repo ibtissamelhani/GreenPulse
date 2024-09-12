@@ -142,15 +142,15 @@ public class Menu {
                 case "2":
                     consumptionUI.ShowTotalConsumption();
                     break;
-//                case "3":
-//                    consumptionUI.dailyConsumption();
-//                    break;
-//                case "4":
-//                    consumptionUI.weeklyConsumption();
-//                    break;
-//                case "5":
-//                    consumptionUI.monthlyConsumption();
-//                    break;
+                case "3":
+                    consumptionUI.dailyConsumption();
+                    break;
+                case "4":
+                    consumptionUI.weeklyConsumption();
+                    break;
+                case "5":
+                    consumptionUI.monthlyConsumption();
+                    break;
                 case "6":
                     consumptionUI.calcAverageConsumption();
                     break;

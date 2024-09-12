@@ -34,7 +34,6 @@ public class ConsumptionService {
     }
 
 
-
     public void addConsumptionToUser(String cin) {
 
         Float value = null;
@@ -151,111 +150,70 @@ public class ConsumptionService {
                 .filter(consumption -> !DateChecker.isDateAvailable(consumption.getStartDate(),consumption.getEndDate(),period))
                 .mapToDouble(Consumption::calculerImpact).sum() / period.size() ;
     }
-//
-//    public float getDailyConsumption(Long userID, LocalDate date) {
-//        User user = userService.getUserById(userID);
-//        if (user != null) {
-//            float dailyConsumption = 0f;
-//            for(Consumption consumption: user.getConsumptions()) {
-//                if (!date.isBefore(consumption.getStartDate()) && !date.isAfter(consumption.getEndDate())) {
-//                    Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) +1 ;
-//                    float result = consumption.getValue() / numOfDays;
-//                    dailyConsumption += result;
-//
-//                }
-//            }
-//            return dailyConsumption;
-//        }else {
-//            System.out.println("User not found");
-//            return 0f;
-//        }
-//    }
-//
-//    public float getWeeklyConsumption(Long userID, LocalDate weekStartDay) {
-//
-//        User user = userService.getUserById(userID);
-//        if (user != null) {
-//
-//            float weeklyConsumption = 0f;
-//            LocalDate weekEndDay = weekStartDay.plusDays(6);
-//
-//            for (Consumption consumption : user.getConsumptions()) {
-//
-//                if (!weekEndDay.isBefore(consumption.getStartDate()) && !weekStartDay.isAfter(consumption.getEndDate())) {
-//                    Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) + 1;
-//                    float dailyValue = consumption.getValue() / numOfDays;
-//
-//                    // determiner les jours commun entre la semaine et periode
-//                    LocalDate sharedDateStart;
-//                    LocalDate sharedDateEnd;
-//
-//                    if (consumption.getStartDate().isBefore(weekStartDay)) {
-//                        sharedDateStart = weekStartDay;
-//                    } else {
-//                        sharedDateStart = consumption.getStartDate();
-//                    }
-//
-//                    if (consumption.getEndDate().isAfter(weekEndDay)) {
-//                        sharedDateEnd = weekEndDay;
-//                    } else {
-//                        sharedDateEnd = consumption.getEndDate();
-//                    }
-//
-//                    long sharedDays;
-//                    if (sharedDateStart.isBefore(sharedDateEnd) || sharedDateStart.isEqual(sharedDateEnd)) {
-//                        sharedDays = sharedDateStart.until(sharedDateEnd, ChronoUnit.DAYS) + 1;
-//                    } else {
-//                        sharedDays = 0;
-//                    }
-//
-//                    weeklyConsumption += dailyValue * sharedDays;
-//                }
-//            }
-//            return weeklyConsumption;
-//        } else {
-//            System.out.println("User not found");
-//            return 0f;
-//        }
-//    }
-//
-//    public float getMonthlyConsumption(Long userID, LocalDate monthStart) {
-//        User user = userService.getUserById(userID);
-//        if (user != null) {
-//            float monthlyConsumption = 0f;
-//            LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
-//
-//            for (Consumption consumption : user.getConsumptions()) {
-//                if (!monthEnd.isBefore(consumption.getStartDate()) && !monthStart.isAfter(consumption.getEndDate())) {
-//                    Long numOfDays = consumption.getStartDate().until(consumption.getEndDate(), ChronoUnit.DAYS) + 1;
-//                    Float dailyValue = consumption.getValue() / numOfDays;
-//                    LocalDate sharedDateStart;
-//                    LocalDate sharedDateEnd;
-//
-//                    if (consumption.getStartDate().isBefore(monthStart)) {
-//                        sharedDateStart = monthStart;
-//                    } else {
-//                        sharedDateStart = consumption.getStartDate();
-//                    }
-//
-//                    if (consumption.getEndDate().isAfter(monthEnd)) {
-//                        sharedDateEnd = monthEnd;
-//                    } else {
-//                        sharedDateEnd = consumption.getEndDate();
-//                    }
-//
-//                    Long sharedDays = sharedDateStart.until(sharedDateEnd, ChronoUnit.DAYS) + 1;
-//
-//                    monthlyConsumption += dailyValue * sharedDays;
-//                }
-//            }
-//            return monthlyConsumption;
-//
-//        } else {
-//            System.out.println("User not found");
-//            return 0f;
-//        }
-//    }
-//
+
+    public Double getDailyConsumption(String cin, LocalDate date) {
+        Optional<User> user = userService.getUserWithConsumptions(cin);
+        if (user.isPresent()) {
+            return user.get().getConsumptions().stream()
+                    .filter(consumption -> !date.isBefore(consumption.getStartDate()) && !date.isAfter(consumption.getEndDate()))
+                    .mapToDouble(consumption -> {
+                        long numOfDays = ChronoUnit.DAYS.between(consumption.getStartDate(), consumption.getEndDate()) + 1;
+                        return consumption.calculerImpact() / numOfDays;
+                    })
+                    .sum();
+        } else {
+            System.out.println("User not found");
+            return 0.;
+        }
+    }
+
+    public float getWeeklyConsumption(String cin, LocalDate weekStartDay) {
+
+        Optional<User> user = userService.getUserWithConsumptions(cin);
+        if (user != null) {
+            LocalDate weekEndDay = weekStartDay.plusDays(6);
+
+            return user.get().getConsumptions()
+                      .stream()
+                      .filter(consumption -> !weekEndDay.isBefore(consumption.getStartDate()) && !weekStartDay.isAfter(consumption.getEndDate()))
+                      .map(consumption -> {
+                          long numOfDays = ChronoUnit.DAYS.between(consumption.getStartDate(), consumption.getEndDate()) + 1;
+                          float dailyValue = (float) consumption.getValue() / numOfDays;
+
+                          long sharedDays = DateChecker.getSharedDays(consumption.getStartDate(), consumption.getEndDate(), weekStartDay, weekEndDay);
+
+                          return dailyValue * sharedDays;
+                      }).reduce(0f, Float::sum);
+
+        } else {
+            System.out.println("User not found");
+            return 0f;
+        }
+    }
+
+    public float getMonthlyConsumption(String cin, LocalDate monthStart) {
+        Optional<User> user = userService.getUserWithConsumptions(cin);
+        if (user != null) {
+            LocalDate monthEnd = monthStart.withDayOfMonth(monthStart.lengthOfMonth());
+
+            return  user.get().getConsumptions()
+                    .stream()
+                    .filter(consumption -> !monthEnd.isBefore(consumption.getStartDate()) && !monthStart.isAfter(consumption.getEndDate()))
+                    .map(consumption -> {
+                        long numOfDays = ChronoUnit.DAYS.between(consumption.getStartDate(), consumption.getEndDate()) + 1;
+                        float dailyValue = (float) consumption.getValue() / numOfDays;
+
+                        long sharedDays = DateChecker.getSharedDays(consumption.getStartDate(), consumption.getEndDate(), monthStart, monthEnd);
+
+                        return dailyValue * sharedDays;
+                    }).reduce(0f, Float::sum);
+
+        } else {
+            System.out.println("User not found");
+            return 0f;
+        }
+    }
+
 
 
 }
