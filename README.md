@@ -28,6 +28,12 @@ The project introduces and applies basic Java concepts, including Object-Oriente
 #### 4. Consumption Analysis
 - Generate detailed reports on carbon consumption, available on a daily, weekly, and monthly basis.
 
+#### 5. Integration with Database
+- Implement persistence of user data and carbon consumption records using JDBC to interact with a relational database.
+Transaction Management
+- Ensure data integrity by using transactional operations when adding or modifying carbon consumption records.
+Note: JDBC transactions are managed using commit() and rollback() to ensure data consistency. This ensures that changes are applied only when all operations succeed, and rolled back in case of failure.
+
 ## Technical Details
 - **Language**: Java
 - **Architecture**: Object-Oriented Programming
