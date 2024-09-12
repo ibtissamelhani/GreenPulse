@@ -1,9 +1,13 @@
 package utils;
 
+import entities.Consumption;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class DateChecker {
 
@@ -27,4 +31,22 @@ public class DateChecker {
             }
         }
     }
+
+    public static List<LocalDate> getDatesList(LocalDate startDate, LocalDate endDate) {
+        LocalDate currentDate = endDate.plusDays(1);
+        return startDate.datesUntil(currentDate).collect(Collectors.toList());
+    }
+
+    public static long getSharedDays(LocalDate periodStart, LocalDate periodEnd, LocalDate fixedStartDay, LocalDate fixedEndDay) {
+
+        LocalDate sharedDateStart = periodStart.isBefore(fixedStartDay) ? fixedStartDay : periodStart;
+        LocalDate sharedDateEnd = periodEnd.isAfter(fixedEndDay) ? fixedEndDay : periodEnd;
+
+        if (!sharedDateStart.isAfter(sharedDateEnd)) {
+            return ChronoUnit.DAYS.between(sharedDateStart, sharedDateEnd) + 1;
+        } else {
+            return 0;
+        }
+    }
+
 }

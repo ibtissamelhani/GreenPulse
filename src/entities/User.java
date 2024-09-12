@@ -5,7 +5,8 @@ import java.util.List;
 
 public class User {
 
-    private Long id;
+    private int id;
+    private String cin;
     private String name;
     private int age;
     private List<Consumption> consumptions;
@@ -13,19 +14,27 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, int age) {
-        this.id = id;
+    public User(String cin,String name, int age) {
+        this.cin = cin;
         this.name = name;
         this.age = age;
         this.consumptions = new ArrayList<>();
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
     public String getName() {
@@ -44,11 +53,11 @@ public class User {
         this.age = age;
     }
 
-    public List<Consumption> getconsumptions() {
+    public List<Consumption> getConsumptions() {
         return consumptions;
     }
 
-    public void setconsumptions(List<Consumption> consumptions) {
+    public void setConsumptions(List<Consumption> consumptions) {
         this.consumptions = consumptions;
     }
 

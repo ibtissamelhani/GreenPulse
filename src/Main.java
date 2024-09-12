@@ -1,4 +1,6 @@
+
 import ui.Menu;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -15,6 +17,7 @@ public class Main {
 
         System.out.println(" ");
         System.out.println("                          Hello and welcome to GreenPulse!           "+RESET);
+
         Menu menu = new Menu();
         menu.start();
 
