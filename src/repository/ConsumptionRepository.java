@@ -11,7 +11,7 @@ public class ConsumptionRepository {
 
     private final Connection connection ;
 
-    public ConsumptionRepository(Connection connection) {
+    public ConsumptionRepository() {
         this.connection = DBConfiguration.getInstance().getConnection();
     }
 

@@ -10,7 +10,7 @@ public class TransportRepository {
 
     private final Connection connection;
 
-    public TransportRepository(Connection connection) {
+    public TransportRepository() {
         this.connection = DBConfiguration.getInstance().getConnection();
     }
 

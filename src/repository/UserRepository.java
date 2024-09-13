@@ -14,7 +14,7 @@ public class UserRepository {
 
     private final Connection connection;
 
-    public UserRepository(Connection connection) {
+    public UserRepository() {
         this.connection = DBConfiguration.getInstance().getConnection();
     }
 
@@ -34,7 +34,6 @@ public class UserRepository {
         return user;
     }
 
-
     public User update(User user) {
         String query = "update users set cin=?, name=?, age=? where cin=?";
         try(PreparedStatement stm = connection.prepareStatement(query)) {
@@ -50,7 +49,6 @@ public class UserRepository {
         return user;
     }
 
-
     public void delete(String cin) {
         String query = "delete from users where cin = ?";
         try(PreparedStatement stm = connection.prepareStatement(query)) {
@@ -61,7 +59,6 @@ public class UserRepository {
             System.out.println("Error while deleting user: "+ e.getMessage());
         }
     }
-
 
     public Optional<User> findByCin(String cin) {
         String query = "select * from users where cin=?";
@@ -82,7 +79,6 @@ public class UserRepository {
         }
         return Optional.ofNullable(user);
     }
-
 
     public List<User> findAll() {
         List<User> users = new ArrayList<>();

@@ -11,7 +11,7 @@ public class FoodRepository {
 
     private final Connection connection ;
 
-    public FoodRepository(Connection connection) {
+    public FoodRepository() {
         this.connection = DBConfiguration.getInstance().getConnection();
     }
 

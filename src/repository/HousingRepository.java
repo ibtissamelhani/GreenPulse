@@ -10,7 +10,7 @@ public class HousingRepository {
 
     private final Connection connection;
 
-    public HousingRepository(Connection connection) {
+    public HousingRepository() {
         this.connection = DBConfiguration.getInstance().getConnection();
     }
 

@@ -1,5 +1,6 @@
 package service;
 
+import database.DBConfiguration;
 import entities.*;
 import repository.ConsumptionRepository;
 import repository.FoodRepository;
@@ -7,6 +8,7 @@ import repository.HousingRepository;
 import repository.TransportRepository;
 import utils.DateChecker;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -23,6 +25,7 @@ public class ConsumptionService {
     private final HousingRepository housingRepository;
     private final TransportRepository transportRepository;
     private final Scanner scanner;
+    private Connection connection;
 
     public ConsumptionService(UserService userService, ConsumptionRepository consumptionRepository, FoodRepository foodRepository, HousingRepository housingRepository, TransportRepository transportRepository) {
         this.userService = userService;
@@ -31,6 +34,7 @@ public class ConsumptionService {
         this.housingRepository = housingRepository;
         this.transportRepository = transportRepository;
         this.scanner = new Scanner(System.in);
+        this.connection = DBConfiguration.getInstance().getConnection();
     }
 
 
@@ -115,6 +119,7 @@ public class ConsumptionService {
             }
 
             consumption.setConsumptionImpact(consumption.calculerImpact());
+
 
             consumptionId = consumptionRepository.save(consumption.getStartDate(), consumption.getEndDate(), consumption.getValue(), consumption.getConsumptionImpact(), consumption.getConsumptionType(), user.get().getId());
 
@@ -219,7 +224,5 @@ public class ConsumptionService {
             return 0f;
         }
     }
-
-
 
 }
