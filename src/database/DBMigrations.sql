@@ -17,7 +17,7 @@ CREATE TABLE consumption (
         value FLOAT NOT NULL,
         consumption_impact DOUBLE PRECISION,
         consumption_type consumption_type NOT NULL,
-        user_id BIGINT REFERENCES users(id)
+        user_id BIGINT REFERENCES users(id) ON DELETE CASCADE
 );
 
 
@@ -49,4 +49,6 @@ INSERT INTO users (cin,name, age)
 VALUES ('p123dfgh','Ibtissam elh', 23),
        ('p123fvvb','nabil Smith', 25),
        ('p123vbn','mbarek Johnson', 40);
+
+
 

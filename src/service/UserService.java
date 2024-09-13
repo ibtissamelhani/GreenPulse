@@ -30,7 +30,7 @@ public class UserService {
         Optional<User> deletedUsers =  getUserByCin(cin);
         if(deletedUsers.isPresent()) {
             System.out.println(" " + deletedUsers.get().getCin() + " " + deletedUsers.get().getName());
-            userRepository.delete(cin);
+            userRepository.delete(deletedUsers);
         }else {
             System.out.println(" user not found");
         }

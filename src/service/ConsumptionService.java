@@ -25,7 +25,6 @@ public class ConsumptionService {
     private final HousingRepository housingRepository;
     private final TransportRepository transportRepository;
     private final Scanner scanner;
-    private Connection connection;
 
     public ConsumptionService(UserService userService, ConsumptionRepository consumptionRepository, FoodRepository foodRepository, HousingRepository housingRepository, TransportRepository transportRepository) {
         this.userService = userService;
@@ -34,9 +33,7 @@ public class ConsumptionService {
         this.housingRepository = housingRepository;
         this.transportRepository = transportRepository;
         this.scanner = new Scanner(System.in);
-        this.connection = DBConfiguration.getInstance().getConnection();
     }
-
 
     public void addConsumptionToUser(String cin) {
 
@@ -118,10 +115,8 @@ public class ConsumptionService {
                     break;
             }
 
-            consumption.setConsumptionImpact(consumption.calculerImpact());
 
-
-            consumptionId = consumptionRepository.save(consumption.getStartDate(), consumption.getEndDate(), consumption.getValue(), consumption.getConsumptionImpact(), consumption.getConsumptionType(), user.get().getId());
+            consumptionId = consumptionRepository.save(consumption.getStartDate(), consumption.getEndDate(), consumption.getValue(), consumption.getConsumptionType(), user.get().getId());
 
             if (consumption instanceof Transport) {
                 Transport transport = (Transport) consumption;

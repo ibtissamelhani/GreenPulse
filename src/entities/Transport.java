@@ -44,9 +44,9 @@ public class Transport extends Consumption {
     public double calculerImpact() {
         double impact = 0.0;
         if ("car".equalsIgnoreCase(vehicleType)) {
-            impact = distanceTraveled * 0.5;
+            impact = super.getValue()*distanceTraveled * 0.5;
         } else if ("train".equalsIgnoreCase(vehicleType)) {
-            impact = distanceTraveled * 0.1;
+            impact = super.getValue()*distanceTraveled * 0.1;
         }
         return impact;
     }

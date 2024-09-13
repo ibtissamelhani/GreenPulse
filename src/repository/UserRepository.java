@@ -49,10 +49,11 @@ public class UserRepository {
         return user;
     }
 
-    public void delete(String cin) {
+    public void delete(Optional<User> user) {
+
         String query = "delete from users where cin = ?";
         try(PreparedStatement stm = connection.prepareStatement(query)) {
-            stm.setString(1, cin);
+            stm.setString(1, user.get().getCin());
             stm.executeUpdate();
             System.out.println("user deleted");
         }catch (SQLException e) {
