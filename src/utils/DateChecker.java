@@ -1,6 +1,5 @@
 package utils;
 
-import entities.Consumption;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

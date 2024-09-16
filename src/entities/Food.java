@@ -45,9 +45,9 @@ public class Food extends Consumption{
     public double calculerImpact() {
         double impact = 0.0;
         if ("meat".equalsIgnoreCase(typeOfFood)) {
-            impact = weight * 5.0;
+            impact = super.getValue()*weight * 5.0;
         } else if ("vegetable".equalsIgnoreCase(typeOfFood)) {
-            impact = weight * 0.5;
+            impact = super.getValue()*weight * 0.5;
         }
         return impact;
     }

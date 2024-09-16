@@ -1,17 +1,22 @@
 package ui;
 
+import entities.User;
 import service.ConsumptionService;
+import service.UserService;
 import utils.DateChecker;
 
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ConsumptionUI {
 
     private final ConsumptionService consumptionService;
+    private final UserService userService;
 
-    public ConsumptionUI(ConsumptionService consumptionService) {
+    public ConsumptionUI(ConsumptionService consumptionService, UserService userService) {
         this.consumptionService = consumptionService;
+        this.userService = userService;
         this.scanner = new Scanner(System.in);
     }
 
@@ -25,6 +30,12 @@ public class ConsumptionUI {
         System.out.print("Enter user cin: ");
         String cin = scanner.next();
         scanner.nextLine();
+
+        Optional<User> user = userService.getUserByCin(cin);
+        if (user.isEmpty()) {
+            System.out.println("CIN doesn't exists. Please use an existing CIN.");
+            return;
+        }
         consumptionService.addConsumptionToUser(cin);
     }
 
@@ -32,8 +43,15 @@ public class ConsumptionUI {
         System.out.println("\n Total Consumption \n");
         System.out.print("Enter user CIN: ");
         String cin = scanner.next();
+
+        Optional<User> user = userService.getUserByCin(cin);
+        if (user.isEmpty()) {
+            System.out.println("CIN doesn't exists. Please use an existing CIN.");
+            return;
+        }
+
         Double result = consumptionService.calcTotalConsumption(cin);
-        System.out.println("\nTotal carbon consumption of user " + cin + "is : " + result +"  KgCO2eq");
+        System.out.println("\nTotal carbon consumption of user " + cin + " is : " + result +"  KgCO2eq");
     }
 
     public void calcAverageConsumption(){

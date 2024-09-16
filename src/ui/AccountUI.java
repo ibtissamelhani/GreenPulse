@@ -1,12 +1,12 @@
 package ui;
 
-import entities.Consumption;
-import entities.User;
+import entities.*;
 import service.UserService;
 import utils.DateChecker;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class AccountUI {
@@ -28,6 +28,12 @@ public class AccountUI {
 
         System.out.print("Enter Your cin: ");
         String cin = scanner.next();
+
+        Optional<User> existingUser = userService.getUserByCin(cin);
+        if (existingUser.isPresent()) {
+            System.out.println("CIN already exists. Please use a different CIN.");
+            return;
+        }
 
         System.out.print("Enter Your Name: ");
         String name = scanner.next();
@@ -58,15 +64,20 @@ public class AccountUI {
 
     public void modifyAccount(){
         System.out.println("\n Modify Account");
+
         System.out.print("Enter user CIN: ");
         String cin = scanner.next();
+        Optional<User> user = userService.getUserByCin(cin);
 
-        userService.getUserByCin(cin).ifPresent(user -> {
-            System.out.print("\n id: " + user.getId() + "  name: " + user.getName() + " age: " + user.getAge() + " \n");
-            System.out.print("Enter new Name : ");
-            String name = scanner.next();
-            int age = -1;
-            while(age<=0 || age>100){
+        if (user.isEmpty()) {
+            System.out.println("CIN doesn't exists. Please use an existing CIN.");
+            return;
+        }
+        System.out.print("\n id: " + user.get().getId() + "  name: " + user.get().getName() + " age: " + user.get().getAge() + " \n");
+        System.out.print("Enter new Name : ");
+        String name = scanner.next();
+        int age = -1;
+        while(age<=0 || age>100){
                 System.out.print("Enter new Age: ");
                 if (scanner.hasNextInt()) {
                     age = scanner.nextInt();
@@ -78,14 +89,19 @@ public class AccountUI {
                     scanner.next();
                 }
             }
-            userService.updateUser(cin,name,age);
-        });
+        userService.updateUser(cin,name,age);
 
     }
 
     public void deleteAccount(){
         System.out.print("Enter user CIN to delete: ");
         String cin = scanner.next();
+        Optional<User> user = userService.getUserByCin(cin);
+
+        if (user.isEmpty()) {
+            System.out.println("CIN doesn't exists. Please use an existing CIN.");
+            return;
+        }
         userService.deleteUser(cin);
         System.out.println("\n account deleted successfully ");
     }
@@ -115,12 +131,25 @@ public class AccountUI {
             for (User user : users){
                 System.out.printf(GREEN+"\n| %-18s | %-18s | %-18s | %-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge() +RESET);
                 System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+");
-                System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s | %-18s |\n","ID", "start_date", "end_date", "value","impact","type");
+                System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s | %-18s |\n","ID", "start_date", "end_date", "value", "type", "total consumption");
                 System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+");
 
                 for(Consumption consumption: user.getConsumptions()){
-                    System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s | %-18s |\n",consumption.getId(), consumption.getStartDate(), consumption.getEndDate(), consumption.getValue(), consumption.getConsumptionImpact(), consumption.getConsumptionType());
+                    System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s | %-18s |\n",consumption.getId(), consumption.getStartDate(), consumption.getEndDate(), consumption.getValue(), consumption.getConsumptionType(), userService.calcTotalImpact(user));
                     System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+");
+                    if (consumption instanceof Transport) {
+                        Transport transport = (Transport) consumption;
+                        System.out.println("Distance Traveled: " + transport.getDistanceTraveled());
+                        System.out.println("Vehicle Type: " + transport.getVehicleType());
+                    } else if (consumption instanceof Housing) {
+                        Housing housing = (Housing) consumption;
+                        System.out.println("Energy Consumption: " + housing.getEnergyConsumption());
+                        System.out.println("Energy Type: " + housing.getEnergyType());
+                    } else if (consumption instanceof Food) {
+                        Food food = (Food) consumption;
+                        System.out.println("Type of Food: " + food.getTypeOfFood());
+                        System.out.println("Weight: " + food.getWeight());
+                    }
                 }
             }
         }else {
@@ -134,12 +163,12 @@ public class AccountUI {
         System.out.println(RED+"******************************  Users with a total consumption greater than 3000 KgCO2eq  ***********************************"+RESET);
         List<User> users = userService.getUsers();
         if(!users.isEmpty()){
-            System.out.println("\n+--------------------+--------------------+--------------------+-------------------+");
-            System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n","ID", "CIN", "Name", "Age");
-            System.out.println("+--------------------+--------------------+--------------------+-------------------+");
+            System.out.println("\n+--------------------+--------------------+--------------------+-------------------+-------------------+");
+            System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s |\n","ID", "CIN", "Name", "Age", "total Consumption");
+            System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+");
             for (User user : users){
-                System.out.printf("| %-18s | %-18s | %-18s |%-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge());
-                System.out.println("+--------------------+--------------------+--------------------+-------------------+");
+                System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s |\n", user.getId(), user.getCin(), user.getName(), user.getAge(), userService.calcTotalImpact(user));
+                System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+");
             }
         }else {
             System.out.println("\n Users not found \n");
@@ -162,7 +191,7 @@ public class AccountUI {
                 System.out.println(" \n End date cannot be before the start date. Please enter valid dates.\n");
             }
         }
-        System.out.println(RED+"************************************************  Inactive accounts Accounts ***********************************"+RESET);
+        System.out.println(RED+"******************************************  Inactive accounts Accounts between "+startDate+" - "+endDate+"  *********************************"+RESET);
         List<User> users = userService.getInactiveUsers(startDate, endDate);
         if(!users.isEmpty()){
             System.out.println("\n+--------------------+--------------------+--------------------+-------------------+");
@@ -175,13 +204,13 @@ public class AccountUI {
         }else {
             System.out.println("\n Users not found \n");
         }
-        System.out.println(RED+"***********************************************************************************************************************"+RESET);
+        System.out.println(RED+"******************************************************************************************************************************"+RESET);
 
     }
 
     public void getUsersSortedByTotalConsumption() {
         List<User> users = userService.getUsersSortedByTotalConsumption();
-        System.out.println("Users sorted by total consumption:");
+        System.out.println(GREEN+"******************************************  Users sorted by total consumption  *********************************"+RESET);
         if(!users.isEmpty()){
             System.out.println("\n+--------------------+--------------------+--------------------+-------------------+-------------------+");
             System.out.printf("| %-18s | %-18s | %-18s |%-18s | %-18s |\n","ID", "CIN", "Name", "Age", "Total Consumption");

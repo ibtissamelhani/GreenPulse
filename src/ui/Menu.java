@@ -1,25 +1,19 @@
 package ui;
 
-import database.DBConfiguration;
 import repository.*;
 import service.ConsumptionService;
 import service.UserService;
 
-import java.sql.Connection;
 import java.util.Scanner;
 
 public class Menu {
 
-    private final Connection connection = DBConfiguration.getConnection() ;
-    private final ConsumptionRepository consumptionRepository = new ConsumptionRepository(connection);
-    private final FoodRepository foodRepository = new FoodRepository(connection);
-    private final TransportRepository transportRepository = new TransportRepository(connection);
-    private final HousingRepository housingRepository = new HousingRepository(connection);
-    private final UserRepository userRepository = new UserRepository(connection);
+    private final ConsumptionRepository consumptionRepository = new ConsumptionRepository();
+    private final UserRepository userRepository = new UserRepository();
     private final UserService userService = new UserService(userRepository);
-    private final ConsumptionService consumptionService = new ConsumptionService(userService,consumptionRepository,foodRepository,housingRepository,transportRepository);
+    private final ConsumptionService consumptionService = new ConsumptionService(userService,consumptionRepository);
     private final AccountUI accountUI = new AccountUI(userService);
-    private final ConsumptionUI consumptionUI = new ConsumptionUI(consumptionService);
+    private final ConsumptionUI consumptionUI = new ConsumptionUI(consumptionService,userService);
 
     private final Scanner scanner = new Scanner(System.in);
     private boolean quit = false;
