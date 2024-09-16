@@ -16,7 +16,7 @@ public class FoodRepository {
     }
 
     public void save (String typeOfFood, Double weight, int consumptionId) {
-        String query = "INSERT INTO food (type_of_food,weight,consumption_id) VALUES (?,?,?)";
+        String query = "INSERT INTO foods (type_of_food,weight,consumption_id) VALUES (?,?,?)";
 
         try(PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setString(1, typeOfFood);

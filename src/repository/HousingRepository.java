@@ -15,7 +15,7 @@ public class HousingRepository {
     }
 
     public void save (Double energyConsumption, String energyType, int consumptionId) {
-        String query = "INSERT INTO housing (energy_consumption,energy_type,consumption_id) VALUES (?,?,?)";
+        String query = "INSERT INTO housings (energy_consumption,energy_type,consumption_id) VALUES (?,?,?)";
 
         try(PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setDouble(1, energyConsumption);

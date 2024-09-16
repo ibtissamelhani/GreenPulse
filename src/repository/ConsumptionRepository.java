@@ -16,7 +16,7 @@ public class ConsumptionRepository {
     }
 
     public int save(LocalDate startDate, LocalDate endDate, Float value, ConsumptionType consumptionType, int userId) {
-        String query = "INSERT INTO consumption (start_date, end_date, value,user_id, consumption_type) " +
+        String query = "INSERT INTO consumptions (start_date, end_date, value,user_id, consumption_type) " +
                 "VALUES (?, ?, ?, ?,?, ?::consumption_type) RETURNING id";
         int consumptionId = -1;
 

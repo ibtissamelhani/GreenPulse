@@ -73,12 +73,13 @@ public class UserRepository {
                 user.setCin(result.getString("cin"));
                 user.setName(result.getString("name"));
                 user.setAge(result.getInt("age"));
+                return Optional.of(user);
             }
 
         }catch (SQLException e) {
             System.out.println("Error fetching user: " + e.getMessage());
         }
-        return Optional.ofNullable(user);
+        return Optional.empty();
     }
 
     public List<User> findAll() {
@@ -104,15 +105,15 @@ public class UserRepository {
         Map<Integer, User> userMap = new HashMap<>();
         String query = "SELECT u.id as user_id, u.cin, u.name, u.age, " +
                 "c.id as consumption_id, c.start_date, c.end_date, " +
-                "c.value, c.consumption_impact, c.consumption_type, " +
+                "c.value, c.consumption_type, " +
                 "t.distance_traveled, t.vehicle_type, " +
                 "h.energy_consumption, h.energy_type, " +
                 "f.type_of_food, f.weight " +
                 "FROM users u " +
-                "LEFT JOIN consumption c ON u.id = c.user_id " +
-                "LEFT JOIN transport t ON c.id = t.id " +
-                "LEFT JOIN housing h ON c.id = h.id " +
-                "LEFT JOIN food f ON c.id = f.id;";
+                "LEFT JOIN consumptions c ON u.id = c.user_id " +
+                "LEFT JOIN transports t ON c.id = t.id " +
+                "LEFT JOIN housings h ON c.id = h.id " +
+                "LEFT JOIN foods f ON c.id = f.id;";
 
         try (PreparedStatement stm = connection.prepareStatement(query)) {
             ResultSet result = stm.executeQuery();

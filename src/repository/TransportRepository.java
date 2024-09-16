@@ -15,7 +15,7 @@ public class TransportRepository {
     }
 
     public void save(Double distanceTraveled,String vehicleType,int consumptionId) {
-        String query = "INSERT INTO transport (distance_traveled,vehicle_type,consumption_id) VALUES (?,?,?)";
+        String query = "INSERT INTO transports (distance_traveled,vehicle_type,consumption_id) VALUES (?,?,?)";
 
         try(PreparedStatement stm = connection.prepareStatement(query)) {
             stm.setDouble(1, distanceTraveled);
