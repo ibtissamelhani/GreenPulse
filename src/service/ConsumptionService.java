@@ -112,8 +112,14 @@ public class ConsumptionService {
 
     public Double calcTotalConsumption(String cin) {
         Optional<User> user = userService.getUserWithConsumptions(cin);
-        return user.get().getConsumptions()
-                .stream().mapToDouble(Consumption::calculerImpact).sum() ;
+        if (user.isPresent() && user.get().getConsumptions() != null) {
+            return user.get().getConsumptions().stream()
+                    .mapToDouble(Consumption::calculerImpact)
+                    .sum();
+        } else {
+            System.out.println("User not found or user has no consumptions.");
+            return 0.0;
+        }
     }
 
     public Double calcAverageConsumption(String cin, LocalDate startDate, LocalDate endDate) {

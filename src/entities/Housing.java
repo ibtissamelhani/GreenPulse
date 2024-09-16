@@ -44,9 +44,9 @@ public class Housing extends Consumption {
     public double calculerImpact() {
         double impact = 0.0;
         if ("electricity".equalsIgnoreCase(energyType)) {
-            impact = super.getValue()*energyConsumption * 1.5;
+            impact = super.getValue() * energyConsumption * 1.5;
         } else if ("gas".equalsIgnoreCase(energyType)) {
-            impact = super.getValue()*energyConsumption * 2.0;
+            impact = super.getValue() * energyConsumption * 2.0;
         }
         return impact;
     }

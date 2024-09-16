@@ -1,7 +1,6 @@
 package ui;
 
-import entities.Consumption;
-import entities.User;
+import entities.*;
 import service.UserService;
 import utils.DateChecker;
 
@@ -138,6 +137,19 @@ public class AccountUI {
                 for(Consumption consumption: user.getConsumptions()){
                     System.out.printf("| %-18s | %-18s | %-18s | %-18s | %-18s | %-18s |\n",consumption.getId(), consumption.getStartDate(), consumption.getEndDate(), consumption.getValue(), consumption.getConsumptionType(), userService.calcTotalImpact(user));
                     System.out.println("+--------------------+--------------------+--------------------+-------------------+-------------------+-------------------+");
+                    if (consumption instanceof Transport) {
+                        Transport transport = (Transport) consumption;
+                        System.out.println("Distance Traveled: " + transport.getDistanceTraveled());
+                        System.out.println("Vehicle Type: " + transport.getVehicleType());
+                    } else if (consumption instanceof Housing) {
+                        Housing housing = (Housing) consumption;
+                        System.out.println("Energy Consumption: " + housing.getEnergyConsumption());
+                        System.out.println("Energy Type: " + housing.getEnergyType());
+                    } else if (consumption instanceof Food) {
+                        Food food = (Food) consumption;
+                        System.out.println("Type of Food: " + food.getTypeOfFood());
+                        System.out.println("Weight: " + food.getWeight());
+                    }
                 }
             }
         }else {
