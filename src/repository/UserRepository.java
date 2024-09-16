@@ -162,7 +162,6 @@ public class UserRepository {
                         consumption.setStartDate(result.getDate("start_date").toLocalDate());
                         consumption.setEndDate(result.getDate("end_date").toLocalDate());
                         consumption.setValue(result.getFloat("value"));
-                        consumption.setConsumptionImpact(result.getDouble("consumption_impact"));
                         consumption.setConsumptionType(ConsumptionType.valueOf(consumptionType));
 
                         user.getConsumptions().add(consumption);

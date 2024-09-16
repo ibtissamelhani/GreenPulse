@@ -1,18 +1,11 @@
 package service;
 
-import database.DBConfiguration;
 import entities.*;
 import repository.ConsumptionRepository;
-import repository.FoodRepository;
-import repository.HousingRepository;
-import repository.TransportRepository;
 import utils.DateChecker;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -21,17 +14,11 @@ public class ConsumptionService {
 
     private final UserService userService;
     private final ConsumptionRepository consumptionRepository;
-    private final FoodRepository foodRepository;
-    private final HousingRepository housingRepository;
-    private final TransportRepository transportRepository;
     private final Scanner scanner;
 
-    public ConsumptionService(UserService userService, ConsumptionRepository consumptionRepository, FoodRepository foodRepository, HousingRepository housingRepository, TransportRepository transportRepository) {
+    public ConsumptionService(UserService userService, ConsumptionRepository consumptionRepository) {
         this.userService = userService;
         this.consumptionRepository = consumptionRepository;
-        this.foodRepository = foodRepository;
-        this.housingRepository = housingRepository;
-        this.transportRepository = transportRepository;
         this.scanner = new Scanner(System.in);
     }
 
@@ -69,7 +56,7 @@ public class ConsumptionService {
                 }
             }
 
-            // Prompt for consumption type
+
             ConsumptionType consumptionType = null;
             while (consumptionType == null) {
                 System.out.println("Enter consumption type (TRANSPORT, HOUSING, FOOD): ");
@@ -81,7 +68,6 @@ public class ConsumptionService {
             }
 
             Consumption consumption = null;
-            int consumptionId = -1;
 
             switch (consumptionType) {
                 case TRANSPORT:
@@ -115,19 +101,7 @@ public class ConsumptionService {
                     break;
             }
 
-
-            consumptionId = consumptionRepository.save(consumption.getStartDate(), consumption.getEndDate(), consumption.getValue(), consumption.getConsumptionType(), user.get().getId());
-
-            if (consumption instanceof Transport) {
-                Transport transport = (Transport) consumption;
-                transportRepository.save(transport.getDistanceTraveled(), transport.getVehicleType(), consumptionId);
-            } else if (consumption instanceof Housing) {
-                Housing housing = (Housing) consumption;
-                housingRepository.save(housing.getEnergyConsumption(), housing.getEnergyType(), consumptionId);
-            } else if (consumption instanceof Food) {
-                Food food = (Food) consumption;
-                foodRepository.save(food.getTypeOfFood(), food.getWeight(), consumptionId);
-            }
+            consumptionRepository.saveConsumption(consumption, user.get().getId());
 
             System.out.println("Consumption added successfully for user: " + user.get().getName());
 

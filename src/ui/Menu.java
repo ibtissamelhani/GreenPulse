@@ -9,14 +9,11 @@ import java.util.Scanner;
 public class Menu {
 
     private final ConsumptionRepository consumptionRepository = new ConsumptionRepository();
-    private final FoodRepository foodRepository = new FoodRepository();
-    private final TransportRepository transportRepository = new TransportRepository();
-    private final HousingRepository housingRepository = new HousingRepository();
     private final UserRepository userRepository = new UserRepository();
     private final UserService userService = new UserService(userRepository);
-    private final ConsumptionService consumptionService = new ConsumptionService(userService,consumptionRepository,foodRepository,housingRepository,transportRepository);
+    private final ConsumptionService consumptionService = new ConsumptionService(userService,consumptionRepository);
     private final AccountUI accountUI = new AccountUI(userService);
-    private final ConsumptionUI consumptionUI = new ConsumptionUI(consumptionService);
+    private final ConsumptionUI consumptionUI = new ConsumptionUI(consumptionService,userService);
 
     private final Scanner scanner = new Scanner(System.in);
     private boolean quit = false;
